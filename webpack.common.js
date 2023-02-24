@@ -1,79 +1,79 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require('webpack')
-const path = require('path')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const webpack = require("webpack")
+const path = require("path")
 
 module.exports = {
   entry: {
-    index: './src/index.js'
+    index: "./src/index.js",
   },
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'build')
+    filename: "[name].js",
+    path: path.resolve(__dirname, "build"),
   },
   module: {
     rules: [
       {
         test: /\.scss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
       {
         test: /\.html$/i,
-        loader: 'html-loader'
+        loader: "html-loader",
       },
       {
         resourceQuery: /raw/,
-        type: 'asset/source'
+        type: "asset/source",
       },
       {
         test: /\.png/,
-        type: 'asset/resource',
+        type: "asset/resource",
         generator: {
-          filename: 'images/[hash][ext][query]'
-        }
+          filename: "images/[hash][ext][query]",
+        },
       },
       {
         test: /\.svg/,
-        type: 'asset/resource',
+        type: "asset/resource",
         generator: {
-          filename: 'images/[hash][ext][query]'
-        }
+          filename: "images/[hash][ext][query]",
+        },
       },
       {
         test: /\.(ttf|otf)$/i,
-        loader: 'file-loader',
+        loader: "file-loader",
         options: {
-          name: 'fonts/[name].[ext]'
-        }
+          name: "fonts/[name].[ext]",
+        },
       },
       {
         test: /\.mp3$/,
-        loader: 'file-loader',
+        loader: "file-loader",
         options: {
-          name: '[name].[ext]'
-        }
-      }
-    ]
+          name: "[name].[ext]",
+        },
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
+      filename: "[name].css",
+      chunkFilename: "[id].css",
     }),
     new HtmlWebpackPlugin({
       hash: true,
-      scriptLoading: 'blocking',
-      template: './src/index.html',
-      filename: './index.html',
-      chunks: ['index']
-    })
+      scriptLoading: "blocking",
+      template: "./src/index.html",
+      filename: "./index.html",
+      chunks: ["index"],
+    }),
   ],
   optimization: {
-    minimizer: [new CssMinimizerPlugin()]
-  }
+    minimizer: [new CssMinimizerPlugin()],
+  },
 }
