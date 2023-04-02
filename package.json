@@ -1,7 +1,7 @@
 {
   "name": "ritmo",
   "main": "index.js",
-  "homepage": "https://long-suffering.github.io/ritmo/",
+  "homepage": "https://denisraymer.github.io/ritmo/",
   "scripts": {
     "jest": "jest --env=node",
     "test:pystress": "npm run extractcode && ./stress_test_python.sh",
