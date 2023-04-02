@@ -43,7 +43,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
         }),
-        new CopyWebpackPlugin([{from: 'src/og/og.png', to: 'og.png'}]),
     ],
     watchOptions: {
         // does not work properly, ssr/mustache/etc is a mess now
