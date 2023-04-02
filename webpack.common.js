@@ -1,0 +1,64 @@
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+module.exports = {
+    entry: './src/index.js',
+    output: {
+        filename: '[name].[contenthash].js',
+        path: path.resolve(__dirname, 'dist'),
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                use: {
+                    loader: 'babel-loader',
+                    /* presets come from .babelrc */
+                    options: {
+                        plugins: ['lodash'],
+                    },
+                },
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+        ],
+    },
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new MiniCssExtractPlugin({
+            filename: '[name].[contenthash].css',
+        }),
+        new CopyWebpackPlugin([{from: 'src/og/og.png', to: 'og.png'}]),
+    ],
+    watchOptions: {
+        // does not work properly, ssr/mustache/etc is a mess now
+        ignored: /\.html$/,
+    },
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
+        },
+    },
+};
