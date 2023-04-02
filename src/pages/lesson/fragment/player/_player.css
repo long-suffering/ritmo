@@ -1,0 +1,263 @@
+.player-header {
+    position: relative; /* for .player-buttons position:absolute to work */
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 100%;
+}
+
+.player-header-desktop {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.player-main {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a.player-title {
+    font-weight: 700;
+    margin-left: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.player-buttons {
+    display: flex;
+    align-items: center;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.player-buttons-mobile {
+    margin-left: 30px;
+}
+
+.slider-mobile-extra {
+    position: absolute !important;
+    bottom: 36px !important;
+    width: calc(100% - 20px) !important;
+}
+
+.mobile-short-explanation {
+    font-size: 14px;
+
+    margin-top: 0px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mobile-header-title {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: -5px;
+
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.player-button {
+    display: flex;
+    cursor: pointer;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-next {
+    margin-left: 5px;
+}
+
+.player-prev {
+    margin-right: 5px;
+}
+
+.player-counters {
+    display: flex;
+    justify-content: center;
+    min-width: 65px;
+}
+
+.player-play-button {
+    width: 24px;
+    margin-right: 20px;
+}
+
+.player-theory-button {
+    margin-left: auto;
+    cursor: pointer;
+    color: #416287;
+    margin-right: 10px;
+}
+
+.player-theory-button.player-button-active,
+a.player-title:hover {
+    color: #d1750c;
+}
+
+.rc-slider-handle-click-focused {
+    /* box-shadow: 0 0 0 1px #a0b1c3 !important;*/
+    box-shadow: unset !important;
+}
+
+.rc-slider-handle:focus {
+    /* box-shadow: 0 0 0 3px #a0b1c3 !important;*/
+    box-shadow: unset !important;
+}
+
+.slider-transition {
+    transition: all 0.1s linear 0s;
+}
+
+.player-slider-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.player-state-vis-wrapper {
+    padding-left: 10px;
+}
+
+.player-main {
+    display: flex;
+    flex-direction: row;
+}
+
+.player-code-and-visualisation {
+    flex-grow: 1;
+}
+
+.player-theory {
+    margin-left: 20px;
+    min-width: 200px;
+    margin-right: 2px;
+}
+
+.player-theory-border-wrapper {
+    border-left: 1px rgba(128, 128, 128, 0.15) solid;
+}
+
+.player-theory-inner {
+    padding-left: 10px;
+    padding-right: 8px;
+    padding-bottom: 15px;
+}
+
+.player-theory h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    margin-top: 16px;
+}
+
+.player-theory h2 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    margin-top: 16px;
+}
+
+.player-theory p {
+    font-size: 16px;
+    line-height: 1.15;
+    margin-bottom: 4px;
+}
+
+/* hack to make the last couple of lines not hidden */
+.player-theory-inner > :last-child {
+    padding-bottom: 35px;
+}
+
+/*.player-theory .scrollbar-track-y {
+    left: 0px !important;
+    right: none !important;
+}*/
+
+.player-inputs-outer {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.player-inputs-inner {
+    margin-left: 10px;
+}
+
+.player-input-label {
+    min-width: 100px;
+    padding-right: 10px;
+}
+
+.player-input {
+    height: 35px;
+    min-width: 150px;
+    width: 35%;
+    padding-left: 5px;
+    padding-right: 5px;
+    /* border: 0.5px solid #416287 !important; */
+    /*border: 1px solid #e5e6f1 !important;*/
+    border: none;
+    border-radius: 3px;
+    margin-bottom: 3px;
+    background-color: #f4f4f7;
+}
+
+.player-input:focus {
+    /* border: 1px solid #416287 !important;*/
+    outline: none !important;
+}
+
+.player-input-error:focus {
+    outline: none !important;
+}
+
+.player-input-error {
+    background-color: #fdeded;
+}
+
+.player-input-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.player-input-comment {
+    margin-left: 10px;
+}
+
+@media screen and (min-width: 890px) {
+    .player-buttons-desktop {
+        position: absolute;
+        transform: translateX(-50%);
+        left: 50%;
+    }
+}
+
+@media screen and (max-width: 891px) {
+    .player-buttons-desktop {
+        padding-left: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .player-header {
+        height: 50px;
+    }
+}
+
+/* Hacks to not display arrows for number inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+    -moz-appearance: textfield; /* Firefox */
+}
