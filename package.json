@@ -1,6 +1,7 @@
 {
   "name": "ritmo",
   "main": "index.js",
+  "homepage": "https://long-suffering.github.io/ritmo/",
   "scripts": {
     "jest": "jest --env=node",
     "test:pystress": "npm run extractcode && ./stress_test_python.sh",
@@ -84,6 +85,7 @@
     "dotenv": "^6.2.0",
     "eslint": "^8.37.0",
     "file-loader": "^6.2.0",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
     "husky": "^1.2.1",
