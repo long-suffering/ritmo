@@ -145,7 +145,6 @@ h1 {
     letter-spacing: 0.065em;
 
     color: #FFFFFF;
-    font-stretch: 134;
     font-variation-settings: 'GRAD' 0, 'slnt' 0, 'XTRA' 560, 'XOPQ' 96, 'YOPQ' 115, 'YTLC' 514, 'YTUC' 712, 'YTAS' 720, 'YTDE' -249, 'YTFI' 738, 'opsz' 87;
 }
 
@@ -200,6 +199,8 @@ h1 {
     justify-content: center;
     align-items: center;
     text-align: center;
+
+    margin-right: 10px;
 }
 
 .box-content {
@@ -303,21 +304,20 @@ h1 {
 }
 
 .code-block-with-annotations {
+    border-radius: 16px;
+    border: 1px solid #ffffffc7 !important;
+    background-color: rgb(255 255 255 / 31%);
     line-height: 1.15;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 7px;
-    padding-left: 10px;
+    /*margin: 10px;*/
     white-space: nowrap;
+    margin: 10px 0 10px 10px;
+    padding: 10px;
 }
 
 pre.code-line-container {
-    margin: 0px;
+    width: 40%;
+    margin: 0;
     display: inline;
-}
-
-.line-with-annotation {
-    background: white;
 }
 
 pre {
@@ -328,7 +328,7 @@ pre {
 .line-with-annotation.current-line-highlight,
 .line-with-annotation.current-line-highlight:hover,
 .mobile-short-explanation {
-    background-color: rgba(252, 233, 168);
+    background-color: rgba(66, 255, 59, 0.22);
 }
 
 .cross-fade-leave {
@@ -567,7 +567,8 @@ footer {
 
 @media screen and (min-width: 481px) {
     .line-with-annotation:hover {
-        background: #e9ecef;
+        background: rgba(59, 248, 255, 0.22);
+        cursor: pointer;
         width: 100%;
     }
 }

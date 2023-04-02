@@ -1,9 +1,14 @@
+.player {
+    height: 100vh;
+}
+
 .player-header {
     position: relative; /* for .player-buttons position:absolute to work */
     display: flex;
     align-items: center;
-    height: 35px;
+    justify-content: space-between;
     width: 100%;
+    padding: 24px 0;
 }
 
 .player-header-desktop {
@@ -19,10 +24,37 @@
 }
 
 a.player-title {
+    border-radius: 6px;
+    background: rgb(255 255 255 / 31%);
+    width: 40px;
+    height: 40px;
     font-weight: 700;
-    margin-left: 10px;
     text-decoration: none;
+    margin-left: 10px;
     color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+a.player-title svg {
+    margin-left: 13px;
+}
+
+.player-lesson-name {
+    margin-left: 10px;
+    font-family: 'Roboto Flex';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 150%;
+    /* identical to box height, or 40px */
+
+    letter-spacing: -0.03em;
+
+    color: #fff;
+    /*font-stretch: 112;*/
+    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738;
 }
 
 .player-buttons {
@@ -61,19 +93,22 @@ a.player-title {
 }
 
 .player-button {
+    border-radius: 6px;
+    background: rgb(255 255 255 / 31%);
+    width: 40px;
+    height: 40px;
     display: flex;
     cursor: pointer;
-    height: 24px;
     align-items: center;
     justify-content: center;
 }
 
 .player-next {
-    margin-left: 5px;
+    margin-left: 16px;
 }
 
 .player-prev {
-    margin-right: 5px;
+    margin-right: 16px;
 }
 
 .player-counters {
@@ -82,9 +117,23 @@ a.player-title {
     min-width: 65px;
 }
 
+.player-counters span {
+    font-family: 'Roboto Flex';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    /* identical to box height, or 21px */
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    color: #fff;
+    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738;
+}
+
 .player-play-button {
-    width: 24px;
-    margin-right: 20px;
+    margin-left: 16px;
 }
 
 .player-theory-button {
@@ -92,11 +141,6 @@ a.player-title {
     cursor: pointer;
     color: #416287;
     margin-right: 10px;
-}
-
-.player-theory-button.player-button-active,
-a.player-title:hover {
-    color: #d1750c;
 }
 
 .rc-slider-handle-click-focused {
@@ -119,7 +163,12 @@ a.player-title:hover {
 }
 
 .player-state-vis-wrapper {
-    padding-left: 10px;
+    border-radius: 16px;
+    border: 1px solid #ffffffc7 !important;
+    background-color: rgb(255 255 255 / 31%);
+    min-height: 100%;
+    margin: 10px 0 10px 10px;
+    padding: 10px;
 }
 
 .player-main {
@@ -191,20 +240,34 @@ a.player-title:hover {
 .player-input-label {
     min-width: 100px;
     padding-right: 10px;
+
+    font-family: 'Roboto Flex';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    color: #fff;
+    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738;
 }
 
 .player-input {
-    height: 35px;
-    min-width: 150px;
-    width: 35%;
-    padding-left: 5px;
-    padding-right: 5px;
+    width: 100%;
     /* border: 0.5px solid #416287 !important; */
     /*border: 1px solid #e5e6f1 !important;*/
-    border: none;
-    border-radius: 3px;
-    margin-bottom: 3px;
-    background-color: #f4f4f7;
+    border-radius: 8px;
+    height: 45px;
+    background: rgb(255 255 255 / 31%);
+    border: 1px solid #ffffffc7 !important;
+    padding: 0 10px;
+
+    font-family: 'Roboto Flex';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: -0.03em;
+    color: #fff;
+    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738;
 }
 
 .player-input:focus {
@@ -224,6 +287,7 @@ a.player-title:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .player-input-comment {

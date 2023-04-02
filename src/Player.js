@@ -19,6 +19,7 @@ import {isDefinedSmallBoxScreen} from './util';
 import {ParsableInputBase} from './inputs';
 import _ from 'lodash';
 import {dumpPyList, dumpSimplePyObj, parsePyList, parsePyNumber, parsePyStringOrNumberOrNone} from './py_obj_parsing';
+import {ArrowLeft} from './icons/_ArrowLeft';
 
 class PlayerInput extends ParsableInputBase {
     ERROR_COLOR = 'rgb(222, 39, 22)';
@@ -180,13 +181,13 @@ export class Player extends React.Component {
         return {time: nextProps.time};
     }
 
-    handleSliderValueChange = value => {
+    handleSliderValueChange = (value) => {
         this.stop();
         const sliderTime = value / this.SLIDER_MULTIPLIER;
         this.handleTimeChange(sliderTime);
     };
 
-    saveSliderTimeToLS = sliderTime => {
+    saveSliderTimeToLS = (sliderTime) => {
         localStorage.setItem(this.props.lessonId + '_time', sliderTime.toString());
     };
 
@@ -194,7 +195,10 @@ export class Player extends React.Component {
         console.log('handleTimeChange', sliderTime, autoPlaying);
         const time = Math.round(sliderTime);
         this.setState(() => ({time, sliderTime, autoPlaying}), onStateChange);
-        setTimeout(_.throttle(() => this.saveSliderTimeToLS(sliderTime), 500), 0);
+        setTimeout(
+            _.throttle(() => this.saveSliderTimeToLS(sliderTime), 500),
+            0
+        );
         // this.props.handleTimeChange(value);
     };
 
@@ -322,7 +326,7 @@ export class Player extends React.Component {
         }
     }, 250);
 
-    handleKeyboard = event => {
+    handleKeyboard = (event) => {
         console.log('keyboard', event);
         if (event.target.nodeName === 'INPUT') {
             return; // Don't mess with inputs
@@ -422,159 +426,139 @@ export class Player extends React.Component {
         const inputs = this.props.inputs;
 
         return (
-            <div className="player">
-                <div
-                    className={classnames('player-header', !isMobile && 'player-header-desktop')}
-                    style={playerHeaderStyle}
-                >
-                    {(!this.state.showingTheory || !isMobile) && (
-                        <a className="player-title" href="/" onClick={this.navigateHome}>
-                            Объясняем
-                        </a>
-                    )}
-                    {!isMobile && (
-                        <div className="player-lesson-name">
-                            {'\u00A0'}
-                            {this.props.playerHeaderTitle}
-                        </div>
-                    )}
-                    {(!this.state.showingTheory || !isMobile) && (
-                        <div
-                            className={classnames(
-                                'player-buttons',
-                                isMobile ? 'player-buttons-mobile' : 'player-buttons-desktop'
+            <div className="fluid-body">
+                <div className="player">
+                    <div
+                        className={classnames('player-header', !isMobile && 'player-header-desktop')}
+                        style={playerHeaderStyle}
+                    >
+                        <div style={{display: 'flex', alignItems: 'center'}}>
+                            {(!this.state.showingTheory || !isMobile) && (
+                                <a
+                                    className="player-title"
+                                    href="/"
+                                    onClick={this.navigateHome}
+                                    children={<ArrowLeft />}
+                                />
                             )}
-                        >
-                            <div className="player-button player-play-button" onClick={this.toggleAutoPlay}>
-                                <img src={this.state.autoPlaying ? pauseButton : playArrow} />
-                            </div>
-                            <div className="player-button player-prev" onClick={this.prevStep}>
-                                <img src={leftArrow} />
-                            </div>
-                            <div className="player-counters">
-                                <span>
-                                    {time + 1}/{maxTime}
-                                </span>
-                            </div>
-                            <div className="player-button player-next" onClick={this.nextStep}>
-                                <img src={rightArrow} />
-                            </div>
-                        </div>
-                    )}
-                    {this.props.theory && (
-                        <div
-                            className={classnames(
-                                'player-theory-button',
-                                this.state.showingTheory && 'player-button-active'
+                            {!isMobile && (
+                                <div className="player-lesson-name">
+                                    {'\u00A0'}
+                                    {this.props.playerHeaderTitle}
+                                </div>
                             )}
-                            onClick={this.toggleTheory}
-                        >
-                            Теория
                         </div>
-                    )}
-                </div>
+                        {(!this.state.showingTheory || !isMobile) && (
+                            <div className={classnames('player-buttons', isMobile ? 'player-buttons-mobile' : '')}>
+                                <div className="player-button player-prev" onClick={this.prevStep}>
+                                    <img src={leftArrow} />
+                                </div>
+                                <div className="player-counters">
+                                    <span children={`Шаг ${time + 1} из ${maxTime}`} />
+                                </div>
+                                <div className="player-button player-next" onClick={this.nextStep}>
+                                    <img src={rightArrow} />
+                                </div>
+                                <div className="player-button player-play-button" onClick={this.toggleAutoPlay}>
+                                    <img src={this.state.autoPlaying ? pauseButton : playArrow} />
+                                </div>
+                            </div>
+                        )}
+                        {/*{this.props.theory && (*/}
+                        {/*    <div*/}
+                        {/*        className={classnames(*/}
+                        {/*            'player-theory-button',*/}
+                        {/*            this.state.showingTheory && 'player-button-active'*/}
+                        {/*        )}*/}
+                        {/*        onClick={this.toggleTheory}*/}
+                        {/*    >*/}
+                        {/*        Теория*/}
+                        {/*    </div>*/}
+                        {/*)}*/}
+                    </div>
 
-                <div className="player-slider-wrapper">
-                    <Slider
-                        // marks={marks}
-                        onChange={this.handleSliderValueChange}
-                        min={0}
-                        max={this.maxTime() * this.SLIDER_MULTIPLIER}
-                        value={this.state.sliderTime * this.SLIDER_MULTIPLIER}
-                        style={mobileSliderStyle}
-                        dotStyle={{
-                            top: 0,
-                            height: 3,
-                            width: 3,
-                            borderRadius: 0,
-                            backgroundColor: 'white',
-                            border: 'none',
-                        }}
-                        handleStyle={{
-                            height: 10,
-                            width: 10,
-                            marginTop: -4.5,
-                            backgroundColor: '#416287',
-                            border: 'none',
-                        }}
-                        railStyle={{
-                            height: 1,
-                            backgroundColor: 'rgba(157, 187, 220, 0.5)',
-                        }}
-                        trackStyle={{
-                            height: 1,
-                            backgroundColor: '#416287',
-                        }}
-                        className={classnames(isMobile && 'slider-mobile-extra')}
-                    />
-                </div>
-                {!isMobile && inputs && inputs.length && (
-                    <div className="player-inputs-outer">
-                        <div className="player-inputs-inner">
-                            {inputs.map((input, idx) => {
-                                return (
-                                    <PlayerInput
-                                        value={this.state.programInputs[idx]}
-                                        valueRaw={this.state.originalRawInputs[idx]}
-                                        key={input.id}
-                                        label={input.label}
-                                        type={input.type}
-                                        onChange={this.onInputChangeHandlers[idx]}
-                                        dumpValue={val => dumpValue(val, input.type)}
-                                        parseValue={val => parseValue(val, input.type)}
-                                    />
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-                <div className="player-main">
-                    <div className="player-code-and-visualisation" style={{width: codeVisWidth}}>
-                        <CodeBlockWithActiveLineAndAnnotations
-                            height={codeHeight}
-                            time={time}
-                            code={this.props.code}
-                            overflow={false}
-                            fontSize={14}
-                            lineVerticalPadding={2}
-                            breakpoints={breakpoints}
-                            formatBpDesc={this.props.formatBpDesc}
-                            withShortExplanation={isMobile}
-                            mobileHeaderTitle={mobileHeaderTitle}
-                        />
-                        <div className="player-state-vis-wrapper" style={mobileVisWrapperStyle}>
-                            <StateVisualization
-                                bp={bp}
-                                epoch={this.state.breakpointsUpdatedCounter}
-                                innerRef={this.componentRef}
-                                windowWidth={windowWidth}
-                                windowHeight={windowHeight}
-                                overflow={false}
-                            />
-                        </div>
-                    </div>
-                    {this.state.showingTheory && (
-                        <div
-                            className="player-theory"
-                            style={{
-                                position: 'absolute',
-                                background: 'white',
-                                zIndex: 1,
-                                right: 1,
-                                top: !isMobile ? desktopTheoryTop : undefined,
-                                width: theoryWidth,
-                                minWidth: MIN_THEORY_WIDTH,
+                    <div className="player-slider-wrapper">
+                        <Slider
+                            // marks={marks}
+                            onChange={this.handleSliderValueChange}
+                            min={0}
+                            max={this.maxTime() * this.SLIDER_MULTIPLIER}
+                            value={this.state.sliderTime * this.SLIDER_MULTIPLIER}
+                            style={mobileSliderStyle}
+                            dotStyle={{
+                                top: 0,
+                                height: 3,
+                                width: 3,
+                                borderRadius: 0,
+                                backgroundColor: 'white',
+                                border: 'none',
                             }}
-                        >
-                            <div className="player-theory-border-wrapper">
-                                <SmoothScrollbar alwaysShowTracks={true}>
-                                    <div className="player-theory-inner" style={{height: innerTheoryHeight}}>
-                                        {this.props.theory}
-                                    </div>
-                                </SmoothScrollbar>
+                            handleStyle={{
+                                height: 12,
+                                width: 12,
+                                marginTop: -4.5,
+                                backgroundColor: '#FF3B99',
+                                border: 'none',
+                            }}
+                            railStyle={{
+                                height: 2,
+                                cursor: 'pointer',
+                                backgroundColor: '#ffffff',
+                            }}
+                            trackStyle={{
+                                height: 2,
+                                cursor: 'pointer',
+                                backgroundColor: '#FF3B99',
+                            }}
+                            className={classnames(isMobile && 'slider-mobile-extra')}
+                        />
+                    </div>
+                    {!isMobile && inputs && inputs.length && (
+                        <div className="player-inputs-outer">
+                            <div className="player-inputs-inner">
+                                {inputs.map((input, idx) => {
+                                    return (
+                                        <PlayerInput
+                                            value={this.state.programInputs[idx]}
+                                            valueRaw={this.state.originalRawInputs[idx]}
+                                            key={input.id}
+                                            label={input.label}
+                                            type={input.type}
+                                            onChange={this.onInputChangeHandlers[idx]}
+                                            dumpValue={(val) => dumpValue(val, input.type)}
+                                            parseValue={(val) => parseValue(val, input.type)}
+                                        />
+                                    );
+                                })}
                             </div>
                         </div>
                     )}
+                    <div className="player-main">
+                        <div className="player-code-and-visualisation" style={{width: codeVisWidth}}>
+                            <CodeBlockWithActiveLineAndAnnotations
+                                height={codeHeight}
+                                time={time}
+                                code={this.props.code}
+                                overflow={false}
+                                fontSize={15}
+                                lineVerticalPadding={2}
+                                breakpoints={breakpoints}
+                                formatBpDesc={this.props.formatBpDesc}
+                                withShortExplanation={isMobile}
+                                mobileHeaderTitle={mobileHeaderTitle}
+                            />
+                            <div className="player-state-vis-wrapper" style={mobileVisWrapperStyle}>
+                                <StateVisualization
+                                    bp={bp}
+                                    epoch={this.state.breakpointsUpdatedCounter}
+                                    innerRef={this.componentRef}
+                                    windowWidth={windowWidth}
+                                    windowHeight={windowHeight}
+                                    overflow={false}
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

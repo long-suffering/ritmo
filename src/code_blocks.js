@@ -143,7 +143,7 @@ class ActiveBoxSelectionUnthrottled extends React.PureComponent {
 }
 
 class ActiveBoxSelectionThrottledHelper extends React.Component {
-    handleRef = node => {
+    handleRef = (node) => {
         this.node = node;
     };
 
@@ -165,7 +165,7 @@ class ActiveBoxSelectionThrottledHelper extends React.Component {
         );
     }
 
-    handleTransitionEnd = transitionId => {
+    handleTransitionEnd = (transitionId) => {
         this.props.onTransitionEnd(this.props.propsId);
     };
 
@@ -211,7 +211,7 @@ class SelectionGroup extends React.Component {
         const {idx, status} = this.state;
 
         const {individualSelectionsProps, ...restProps} = this.props;
-        return individualSelectionsProps.map(extraProps => (
+        return individualSelectionsProps.map((extraProps) => (
             <ActiveBoxSelectionThrottledHelper
                 {...extraProps}
                 {...restProps}
@@ -224,9 +224,9 @@ class SelectionGroup extends React.Component {
         ));
     }
 
-    handleTransitionEnd = epoch => {
+    handleTransitionEnd = (epoch) => {
         if (epoch === this.state.epoch) {
-            this.setState(state => {
+            this.setState((state) => {
                 if (state.transitionRunning) {
                     return {transitionRunning: false};
                 } else {
@@ -238,7 +238,7 @@ class SelectionGroup extends React.Component {
 
     componentDidUpdate() {
         if (this.state.transitionRunning && this.state.transitionStarting) {
-            this.setState(state => {
+            this.setState((state) => {
                 return {
                     transitionStarting: false,
                 };
@@ -1074,8 +1074,8 @@ class BaseBoxesComponent extends React.PureComponent {
         console.log('~~~~~~~~~~~~~~~');
     }
 
-    updateModIdForGC = modId => {
-        this.setState(state => {
+    updateModIdForGC = (modId) => {
+        this.setState((state) => {
             const gcModId = Math.max(state.gcModId, modId);
             if (gcModId > state.gcModId) {
                 return {gcModId};
@@ -1150,7 +1150,7 @@ class BaseBoxesComponent extends React.PureComponent {
         if (this.state.needProcessCreatedAfterRender) {
             const t1 = performance.now();
 
-            this.setState(state => {
+            this.setState((state) => {
                 const modificationId = state.modificationId + 1;
 
                 let toMerge = {};
@@ -1295,7 +1295,7 @@ export class Tetris extends React.PureComponent {
                 boxGeometry,
                 ...subProps,
             });
-            labelsEnabled = labelsEnabled || !linesData.labels.every(label => label == null);
+            labelsEnabled = labelsEnabled || !linesData.labels.every((label) => label == null);
 
             labels = labels.concat(
                 linesData.labels.map((label, index) => {
@@ -1341,7 +1341,6 @@ export class Tetris extends React.PureComponent {
                     ref={this.props.innerRef}
                     style={{overflowX: this.props.overflow && 'scroll'}}
                 >
-                    <div className="some-hacky-padding" style={{height: boxGeometry.boxSize * 0.75}} />
                     <div className="tetris">
                         {labelsEnabled && <div className="tetris-labels">{labels}</div>}
                         <div className="tetris-rows">{elems}</div>
@@ -1366,7 +1365,7 @@ export class CodeBlockWithActiveLineAndAnnotations extends React.PureComponent {
         this.ssRef = React.createRef();
     }
 
-    _highlightLines = memoizeOne(code => {
+    _highlightLines = memoizeOne((code) => {
         let lines = [];
         let maxLen = Math.max(...code.map(([line, bpPoint]) => line.length));
         for (let i = 0; i < code.length; ++i) {
@@ -1608,13 +1607,13 @@ class TimeSliderWithControls extends React.Component {
         return {time: nextProps.time};
     }
 
-    handleSliderValueChange = value => {
+    handleSliderValueChange = (value) => {
         this.stop();
         this.handleTimeChange(value);
     };
 
     handleTimeChange = (value, userInteracted = true, autoPlaying = false) => {
-        this.setState(state => ({time: value, autoPlaying, userInteracted: state.userInteracted || userInteracted}));
+        this.setState((state) => ({time: value, autoPlaying, userInteracted: state.userInteracted || userInteracted}));
         this.props.handleTimeChange(value);
     };
 
@@ -1644,7 +1643,7 @@ class TimeSliderWithControls extends React.Component {
         this.handleTimeChange(this.props.maxTime);
     };
 
-    getAutoplayTimeout = speed => {
+    getAutoplayTimeout = (speed) => {
         return this.AUTOPLAY_BASE_TIMEOUT / (speed || globalSettings.codePlaySpeed);
     };
 
@@ -1686,7 +1685,7 @@ class TimeSliderWithControls extends React.Component {
         }
     };
 
-    setSpeed = speed => {
+    setSpeed = (speed) => {
         if (speed !== globalSettings.speed) {
             if (
                 this.state.autoPlaying &&
@@ -1837,7 +1836,7 @@ export class VisualizedCode extends React.Component {
         }
     }
 
-    handleTimeChange = time => {
+    handleTimeChange = (time) => {
         const userAdjustedToMax = time === this.props.breakpoints.length - 1;
         this.setState({
             time: time,
@@ -2038,7 +2037,7 @@ export class HashBoxesBrokenComponent extends React.PureComponent {
     static getKeys(array) {
         return array.map((value, idx) => {
             if (value.length != 0) {
-                return value.slice(0, HashBoxesBrokenComponent.MAX_BOXES).map(subValue => pyObjToReactKey(subValue));
+                return value.slice(0, HashBoxesBrokenComponent.MAX_BOXES).map((subValue) => pyObjToReactKey(subValue));
             } else {
                 return [`empty-${idx}`];
             }
