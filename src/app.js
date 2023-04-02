@@ -69,10 +69,6 @@ function logViewportStats() {
     Http.send();*/
 }
 
-function Footer() {
-    return <footer></footer>;
-}
-
 // mainly to prevent addressbar stuff on mobile changing things excessively
 const SIGNIFICANT_HEIGHT_CHANGE = 0;
 export class App extends React.Component {
