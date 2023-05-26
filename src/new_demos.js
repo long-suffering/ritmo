@@ -263,7 +263,7 @@ class MergeSort extends BreakpointFunction {
     }
 }
 
-export const BubbleSortVisualisationFactory = withLabel =>
+export const BubbleSortVisualisationFactory = (withLabel) =>
     TetrisFactory([
         [
             HashBoxesComponent,
@@ -315,7 +315,7 @@ export class NewDemos extends Chapter2_HashTableFunctions {
         };
     }
 
-    runBubbleSort = memoizeOne(a => {
+    runBubbleSort = memoizeOne((a) => {
         const bs = new BubbleSort();
         bs.run(a);
         const bp = bs.getBreakpoints();
@@ -329,7 +329,7 @@ export class NewDemos extends Chapter2_HashTableFunctions {
         return {bp};
     });
 
-    runMergeSort = memoizeOne(a => {
+    runMergeSort = memoizeOne((a) => {
         const ms = new MergeSort();
         ms.run(a);
         const bp = ms.getBreakpoints();
@@ -504,9 +504,7 @@ export function formatQuickSort(bp) {
             return `Рекурсивно сортируем правый подмассив <code>${bp.left}..${bp.stop}</code>`;
         case 'exit': {
             if (bp.recursionLevel > 0) {
-                return `Подмассив <code>${bp.start}..${
-                    bp.stop
-                }</code> отсортирован. Выходим из рекурсии (текущая глубина: ${bp.recursionLevel})`;
+                return `Подмассив <code>${bp.start}..${bp.stop}</code> отсортирован. Выходим из рекурсии (текущая глубина: ${bp.recursionLevel})`;
             } else {
                 return `Весь массив отсортирован, выходим`;
             }

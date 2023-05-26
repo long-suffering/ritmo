@@ -22,7 +22,7 @@ export let win = observable({
     jsLoaded: false,
 });
 
-win.setAll = action(function(width, height, scrollY, jsLoaded) {
+win.setAll = action(function (width, height, scrollY, jsLoaded) {
     win.width = width;
     win.height = height;
     win.scrollY = scrollY;

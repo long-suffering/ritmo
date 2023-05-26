@@ -221,9 +221,7 @@ export function pyHashUnicode(s) {
 export function pyHashLong(num) {
     const twoToPyLong_SHIFT = BigNumber(2).pow(30);
     const BASE = twoToPyLong_SHIFT;
-    const _PyHASH_MODULUS = BigNumber(2)
-        .pow(61)
-        .minus(1);
+    const _PyHASH_MODULUS = BigNumber(2).pow(61).minus(1);
 
     let x = BigNumber(0);
     let sign = 1;
@@ -240,19 +238,14 @@ export function pyHashLong(num) {
     }
 
     for (const d of digits.reverse()) {
-        x = x
-            .times(twoToPyLong_SHIFT)
-            .plus(d)
-            .modulo(_PyHASH_MODULUS);
+        x = x.times(twoToPyLong_SHIFT).plus(d).modulo(_PyHASH_MODULUS);
     }
 
     if (sign < 0) {
         x = x.negated();
     }
     if (x.gte(BigNumber(2).pow(63))) {
-        x = BigNumber(2)
-            .pow(64)
-            .minus(x);
+        x = BigNumber(2).pow(64).minus(x);
     }
 
     if (x.eq(-1)) {
@@ -319,7 +312,7 @@ export class BreakpointFunction {
 
 export function joinBreakpoints(breakpointsList, prefixes) {
     const bps = [];
-    const maxTime = Math.max(...breakpointsList.map(l => l.length));
+    const maxTime = Math.max(...breakpointsList.map((l) => l.length));
     for (let i = 0; i < maxTime; ++i) {
         const newBp = {};
         for (const [breakpoints, prefix] of _.zip(breakpointsList, prefixes)) {
@@ -335,11 +328,7 @@ export function joinBreakpoints(breakpointsList, prefixes) {
 }
 
 export function computeIdx(hashCodeBig, len) {
-    return +hashCodeBig
-        .mod(len)
-        .plus(len)
-        .mod(len)
-        .toString();
+    return +hashCodeBig.mod(len).plus(len).mod(len).toString();
 }
 
 export class HashBreakpointFunction extends BreakpointFunction {

@@ -46,7 +46,10 @@ export class DynamicP extends React.PureComponent {
         this.timeoutId = null;
         this.state = {highlight: false, key: null};
 
-        this.resizeReaction = reaction(() => win.width, () => this.setState({height: undefined}));
+        this.resizeReaction = reaction(
+            () => win.width,
+            () => this.setState({height: undefined})
+        );
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -161,7 +164,7 @@ class DebounceWhenOutOfViewImpl extends React.Component {
         const {height} = rect;
         const top = window.scrollY + rect.top;
         console.log('DebounceWhenOutOfView updateGeometry top', top);
-        this.setState(state => {
+        this.setState((state) => {
             if (state.height !== height || state.top !== top) {
                 return {height, top};
             } else {
@@ -172,7 +175,7 @@ class DebounceWhenOutOfViewImpl extends React.Component {
 
     updateChildProps = () => {
         const childProps = this.props.childProps;
-        this.setState(state => {
+        this.setState((state) => {
             if (childProps !== state.childProps) {
                 return {
                     childProps,
@@ -231,7 +234,7 @@ export function MyErrorBoundary(props) {
 function squashUpdates(func) {
     let queue = [];
     let epoch = 0;
-    return value => {
+    return (value) => {
         let currentEpoch = epoch;
         queue.push(value);
         setTimeout(() => {
@@ -251,10 +254,10 @@ export class ChapterComponent extends React.Component {
         if (!(name in this.setterFuncs)) {
             let updateState;
             if (!incId) {
-                updateState = value => this.setState({[name]: value});
+                updateState = (value) => this.setState({[name]: value});
             } else {
-                updateState = value =>
-                    this.setState(state => {
+                updateState = (value) =>
+                    this.setState((state) => {
                         const idKey = `${name}IdHack`;
                         let id = state[idKey];
                         id++;
@@ -286,7 +289,7 @@ export function Subcontainerize({children}) {
         }
     };
     let ebCount = 0;
-    const wrapEbIfNeeded = child => {
+    const wrapEbIfNeeded = (child) => {
         if (child.type && child.type.EXTRA_ERROR_BOUNDARY) {
             return <MyErrorBoundary key={child.key || `subcontainerize-eb-${++ebCount}`}>{child}</MyErrorBoundary>;
         } else {
@@ -511,7 +514,7 @@ export const isClient = process.env.NODE_ENV !== 'ssr';
 // Useful for SSR
 export function fixFirstValues(func, values) {
     let calledCounter = 0;
-    return function() {
+    return function () {
         let res;
         if (calledCounter < values.length) {
             res = values[calledCounter];

@@ -58,7 +58,7 @@ class ProbingVisualizationImpl extends React.Component {
         };
     }
 
-    setRef = node => {
+    setRef = (node) => {
         this.gChild = node;
     };
 
@@ -106,7 +106,7 @@ class ProbingVisualizationImpl extends React.Component {
             <div ref={this.props.innerRef}>
                 <svg width={10 + this.props.slotsCount * (this.state.boxSize + this.state.boxSpacing)} height={height}>
                     <defs>
-                        {['blue', 'green'].map(color => (
+                        {['blue', 'green'].map((color) => (
                             <marker
                                 id={`arrow-${color}`}
                                 key={`arrow-${color}`}
@@ -199,10 +199,10 @@ class ProbingVisualizationImpl extends React.Component {
         let g = d3.select(this.gChild);
         let lineFunction = d3
             .line()
-            .x(function(d) {
+            .x(function (d) {
                 return d.x;
             })
-            .y(function(d) {
+            .y(function (d) {
                 return d.y;
             })
             .curve(d3.curveMonotoneX);
@@ -249,7 +249,7 @@ class ProbingVisualizationImpl extends React.Component {
                 const yOffset = this.TOP_SPACE + boxSize;
                 ystart = yOffset;
                 yend = yOffset;
-                ymid = yOffset + this.BOTTOM_SPACE * (/*Math.max(i1 - i2, 1)*/ (2 + repeatedAdj) / slotsCount);
+                ymid = yOffset + this.BOTTOM_SPACE * /*Math.max(i1 - i2, 1)*/ ((2 + repeatedAdj) / slotsCount);
                 xstartAdjust = boxSize * 0.33;
                 xendAdjust = boxSize * 0.66;
             }
@@ -257,10 +257,14 @@ class ProbingVisualizationImpl extends React.Component {
             const xend = (boxSize + boxSpacing) * i2 + xendAdjust;
             const xmid = (xstart + xend) / 2;
 
-            return [[xstart, ystart], [xmid, ymid], [xend, yend]];
+            return [
+                [xstart, ystart],
+                [xmid, ymid],
+                [xend, yend],
+            ];
         };
 
-        const toPoints = array => array.map(([x, y]) => ({x, y}));
+        const toPoints = (array) => array.map(([x, y]) => ({x, y}));
         const arrowLinePoints = (i1, i2, repeatedAdj) => toPoints(arrowLinePointsAsArray(i1, i2, repeatedAdj));
         const getLinkColor = ([start, idx]) => {
             const perturbLink = links[start][idx].perturbLink;
@@ -270,7 +274,7 @@ class ProbingVisualizationImpl extends React.Component {
             return `url(#arrow-${getLinkColor([start, idx])})`;
         };
 
-        let updatePaths = g.selectAll('path').data(linksStartIdx, d => d);
+        let updatePaths = g.selectAll('path').data(linksStartIdx, (d) => d);
         const enterPaths = updatePaths.enter();
         const exitPaths = updatePaths.exit();
 
@@ -285,7 +289,7 @@ class ProbingVisualizationImpl extends React.Component {
                 const lp = arrowLinePoints(start, end, repeatedAdj);
                 return lineFunction(lp);
             })
-            .each(function(d, i) {
+            .each(function (d, i) {
                 const node = this;
                 const totalLength = node.getTotalLength();
                 const selected = d3.select(node);
@@ -302,7 +306,7 @@ class ProbingVisualizationImpl extends React.Component {
             });
 
         updatePaths
-            .filter(function(d, i) {
+            .filter(function (d, i) {
                 const [start, idx] = d;
                 return (
                     !d3.select(this).classed('entering') ||
@@ -322,16 +326,16 @@ class ProbingVisualizationImpl extends React.Component {
                 const oldLp = arrowLinePoints(start, oldEnd, oldRepeatedAdj);
                 const lp = arrowLinePoints(start, end, repeatedAdj);
                 const ip = d3.interpolateArray(oldLp, lp);
-                return t => lineFunction(ip(t));
+                return (t) => lineFunction(ip(t));
             })
             .attr('marker-end', getLinkArrow);
 
         exitPaths
-            .filter(function(d, i) {
+            .filter(function (d, i) {
                 return !d3.select(this).classed('exiting');
             })
             .classed('exiting', true)
-            .each(function() {
+            .each(function () {
                 const node = this;
                 const totalLength = node.getTotalLength();
                 const selected = d3.select(node);

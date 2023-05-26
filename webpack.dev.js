@@ -7,7 +7,7 @@ module.exports = merge(common, {
     devtool: 'cheap-module-eval-source-map',
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'src/index.html',
+            template: 'src/public/index.html',
             filename: 'index.html',
         }),
     ],

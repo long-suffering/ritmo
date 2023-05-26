@@ -1,10 +1,11 @@
-body, html {
+body,
+html {
     padding: 0;
     margin: 0;
 }
 
 .fluid-body {
-    background-color: #0E1719;
+    background-color: #0e1719;
 }
 
 .frontpage {
@@ -12,7 +13,7 @@ body, html {
     max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #0E1719;
+    background-color: #0e1719;
 }
 
 .section {
@@ -35,7 +36,7 @@ body, html {
 }
 
 .frontpage .header {
-    border: 1px solid #34353A;
+    border: 1px solid #34353a;
     border-radius: 16px;
     height: 426px;
     font-family: 'IBM Plex Sans', sans-serif;
@@ -103,7 +104,8 @@ body, html {
 
     color: #000000;
     font-stretch: 134;
-    font-variation-settings: 'GRAD' 0, 'slnt' 0, 'XTRA' 560, 'XOPQ' 96, 'YOPQ' 115, 'YTLC' 514, 'YTUC' 712, 'YTAS' 720, 'YTDE' -249, 'YTFI' 738, 'opsz' 87;
+    font-variation-settings: 'GRAD' 0, 'slnt' 0, 'XTRA' 560, 'XOPQ' 96, 'YOPQ' 115, 'YTLC' 514, 'YTUC' 712, 'YTAS' 720,
+        'YTDE' -249, 'YTFI' 738, 'opsz' 87;
 }
 
 .frontpage .pane .vis-wrapper {
@@ -118,7 +120,7 @@ body, html {
 }
 
 .frontpage .bubble-sort {
-    background-color: #72E1D1;
+    background-color: #72e1d1;
 }
 
 .frontpage .quick-sort {
@@ -134,15 +136,15 @@ body, html {
 }
 
 .frontpage .simplified-hash-collisions {
-    background-color: #FF7001;
+    background-color: #ff7001;
 }
 
 .frontpage .simplified-hash-search {
-    background-color: #F49F0A;
+    background-color: #f49f0a;
 }
 
 .frontpage .simplified-hash-create {
-    background-color: #FFFF64;
+    background-color: #ffff64;
 }
 
 .frontpage .simplified-hash-collection {
@@ -177,22 +179,22 @@ body, html {
 }
 
 .frontpage .hash-create {
-    background-color: #E86A92;
+    background-color: #e86a92;
     color: black !important;
     margin-right: 10px;
 }
 
 .frontpage .hash-search {
-    background-color: #F7E733;
+    background-color: #f7e733;
 }
 
 .frontpage .hash-remove {
-    background-color: #C7EF00;
+    background-color: #c7ef00;
     margin-right: 10px;
 }
 
 .frontpage .hash-resize {
-    background-color: #F2BB05;
+    background-color: #f2bb05;
 }
 
 @media screen and (max-width: 890px) {

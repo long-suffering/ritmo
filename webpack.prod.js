@@ -16,7 +16,7 @@ module.exports = merge(common, {
             'process.env.NODE_ENV': JSON.stringify('production'),
         }),
         new HtmlWebpackPlugin({
-            template: 'src/index.html',
+            template: 'src/public/index.html',
             filename: 'index.html',
         }),
         new BundleAnalyzerPlugin(),

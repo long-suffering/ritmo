@@ -52,7 +52,7 @@ export class ParsableInputBase extends React.Component {
         });
     }
 
-    handleChange = event => {
+    handleChange = (event) => {
         try {
             let newState = {
                 valueRaw: event.target.value,
@@ -338,7 +338,7 @@ export function PyListInput({inputComponentRef, extraValueValidator, allowDuplic
         <ParsableInput
             {...restProps}
             dumpValue={dumpPyList}
-            parseValue={s => parsePyList(s, allowDuplicates, minSize, extraValueValidator)}
+            parseValue={(s) => parsePyList(s, allowDuplicates, minSize, extraValueValidator)}
             inputComponentRef={inputComponentRef}
         />
     );
@@ -349,7 +349,7 @@ export function PyDictInput({inputComponentRef, minSize, ...restProps}) {
         <ParsableInput
             {...restProps}
             dumpValue={dumpPyDict}
-            parseValue={s => parsePyDict(s, minSize)}
+            parseValue={(s) => parsePyDict(s, minSize)}
             inputComponentRef={inputComponentRef}
         />
     );
@@ -387,7 +387,7 @@ export function PyStringInput({inputComponentRef, ...restProps}) {
     );
 }
 
-const _stringAsIs = s => s;
+const _stringAsIs = (s) => s;
 export function PyStringNoQuotesInput({inputComponentRef, ...restProps}) {
     return (
         <ParsableInput
@@ -492,7 +492,7 @@ class BlockInputToolbarImpl extends React.Component {
         this.inputComponentRef = null;
     }
 
-    setInputComponentRef = ref => {
+    setInputComponentRef = (ref) => {
         this.inputComponentRef = ref;
     };
 
@@ -543,7 +543,7 @@ class BlockInputToolbarImpl extends React.Component {
         return true;
     }
 
-    handleChange = value => {
+    handleChange = (value) => {
         if (this.state.instantUpdates) {
             const stackUpdated = this._updateStack(value);
             if (stackUpdated) {

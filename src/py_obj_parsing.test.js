@@ -138,7 +138,12 @@ test('Parsing dicts: just ints', () => {
 });
 
 test('Parsing dicts: just strings', () => {
-    const e = [['a', 'b'], ['b', 'c'], ['d', 'e'], ['f', 'g']];
+    const e = [
+        ['a', 'b'],
+        ['b', 'c'],
+        ['d', 'e'],
+        ['f', 'g'],
+    ];
     expect(parsePyDict(" {'a':'b',  'b':  'c','d':     'e','f':'g'   }")).toEqual(e);
     expect(parsePyDict("{   'a':\"b\",\"b\":  'c','d':   'e','f':'g'}")).toEqual(e);
 });
@@ -319,7 +324,7 @@ test('Parsing lists: malformed lists', () => {
 });
 
 test('Parsing None', () => {
-    const parseNone = s => {
+    const parseNone = (s) => {
         let p = new PyObjParser(s);
         return p._parseNoneOrThrowUnknownIdentifier().res;
     };

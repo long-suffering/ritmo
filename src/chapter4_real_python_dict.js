@@ -34,7 +34,7 @@ import {ChapterComponent, Subcontainerize, singularOrPlural, DynamicP, DebounceW
 
 import memoizeOne from 'memoize-one';
 
-let chapter4Extend = Base =>
+let chapter4Extend = (Base) =>
     class extends Base {
         computeIdxAndSave(hashCode, len) {
             this.idx = this.computeIdx(hashCode, len);
@@ -112,47 +112,33 @@ function formatDict32IdxRelatedBp(bp, prevBp) {
 function formatPythonProbing(bp, prevBp) {
     switch (bp.point) {
         case 'const-perturb':
-            return `<code>PERTURB_SHIFT</code> needs to be greater than 0, set it to <code>${
-                this.PERTURB_SHIFT
-            }</code> `;
+            return `<code>PERTURB_SHIFT</code> needs to be greater than 0, set it to <code>${this.PERTURB_SHIFT}</code> `;
         case 'def-probe-all':
             return `Called with the key <code>${displayStr(bp.key)}</code>`;
         case 'compute-hash':
             return `Compute the hash code: <code>${bp.hashCode}</code>`;
         case 'compute-idx':
-            return `Compute the starting slot index: <code>${bp.hashCode} % ${bp.slotsCount}</code> == <code>${
-                bp.idx
-            }</code>`;
+            return `Compute the starting slot index: <code>${bp.hashCode} % ${bp.slotsCount}</code> == <code>${bp.idx}</code>`;
         case 'compute-perturb': {
             if (bp.perturb.eq(bp.hashCode)) {
                 return `<code>perturb</code> is <code>${bp.perturb}</code>, the same as hash (because it is positive)`;
             } else {
-                return `Compute <code>perturb</code> is <code>${
-                    bp.perturb
-                }</code>, converted from the negative hash <code>${bp.hashCode}</code>`;
+                return `Compute <code>perturb</code> is <code>${bp.perturb}</code>, converted from the negative hash <code>${bp.hashCode}</code>`;
             }
         }
         case 'next-idx':
-            return `The next slot will be <code>${bp.idx}</code> == <code>(${prevBp.idx} * 5 + ${bp.perturb} + 1) % ${
-                bp.slotsCount
-            }</code>`;
+            return `The next slot will be <code>${bp.idx}</code> == <code>(${prevBp.idx} * 5 + ${bp.perturb} + 1) % ${bp.slotsCount}</code>`;
         case 'perturb-shift':
-            return `Shifting perturb <code>perturb</code>: <code>${prevBp.perturb} >> 5</code> == <code>${
-                bp.perturb
-            }</code>`;
+            return `Shifting perturb <code>perturb</code>: <code>${prevBp.perturb} >> 5</code> == <code>${bp.perturb}</code>`;
         case 'create-empty-set':
             return 'Initialize the set of visited slots';
         case 'visited-add':
             return `Add slot <code>${bp.idx}</code> to the set of visited slots`;
         case 'while-loop':
             if (bp.visitedIdx.size === bp.slotsCount) {
-                return `all <code>${bp.visitedIdx.size}</code> / <code>${
-                    bp.slotsCount
-                }</code> slots are visited &mdash; stop`;
+                return `all <code>${bp.visitedIdx.size}</code> / <code>${bp.slotsCount}</code> slots are visited &mdash; stop`;
             } else {
-                return `Visited <code>${bp.visitedIdx.size}</code> / <code>${
-                    bp.slotsCount
-                }</code> slots, keep looping until all are visited`;
+                return `Visited <code>${bp.visitedIdx.size}</code> / <code>${bp.slotsCount}</code> slots, keep looping until all are visited`;
             }
     }
 }
@@ -404,12 +390,12 @@ export class Chapter4_RealPythonDict extends ChapterComponent {
         };
     }
 
-    chapter3dict = memoizeOne(pairs => {
+    chapter3dict = memoizeOne((pairs) => {
         const {pySelf} = AlmostPythonDict.__init__(pairs);
         return pySelf;
     });
 
-    runCreateNew = memoizeOne(pairs => {
+    runCreateNew = memoizeOne((pairs) => {
         const {bp, resizes, pySelf} = Dict32.__init__(pairs);
         return {bp, pySelf, resizes};
     });
@@ -428,7 +414,7 @@ export class Chapter4_RealPythonDict extends ChapterComponent {
         return {bp};
     });
 
-    runProbingSimple = memoizeOne(slotsCount => {
+    runProbingSimple = memoizeOne((slotsCount) => {
         let g = new GenerateProbingLinks();
         const {links} = g.run(slotsCount, '', 'i+1');
 
@@ -438,7 +424,7 @@ export class Chapter4_RealPythonDict extends ChapterComponent {
         };
     });
 
-    runProbing5iPlus1 = memoizeOne(slotsCount => {
+    runProbing5iPlus1 = memoizeOne((slotsCount) => {
         let g = new GenerateProbingLinks();
         const {links} = g.run(slotsCount, '', '5i+1');
 

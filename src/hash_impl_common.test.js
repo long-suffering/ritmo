@@ -21,11 +21,5 @@ test('pyHashLong() from longs', () => {
         ).eq(BigNumber('1877707948436126692'))
     ).toBe(true);
     expect(pyHashLong(BigNumber(2).pow(61)).eq(BigNumber(1))).toBe(true);
-    expect(
-        pyHashLong(
-            BigNumber(2)
-                .pow(61)
-                .negated()
-        ).eq(BigNumber(-2))
-    ).toBe(true);
+    expect(pyHashLong(BigNumber(2).pow(61).negated()).eq(BigNumber(-2))).toBe(true);
 });

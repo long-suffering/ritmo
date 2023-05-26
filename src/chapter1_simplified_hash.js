@@ -107,7 +107,7 @@ function simpleListSearch(l, key) {
     return {bp: breakpoints, result: false};
 }
 
-export let formatSimpleListSearchBreakpointDescription = function(bp) {
+export let formatSimpleListSearchBreakpointDescription = function (bp) {
     switch (bp.point) {
         case 'start-execution':
             return `Ищем <code>${bp.number}</code>`;
@@ -226,7 +226,7 @@ class SimplifiedInsertAll extends BreakpointFunction {
 
             this.newList = this.newList.set(this.newListIdx, this.number);
             if (isBroken) {
-                this.newListWithReplacements = this.newListWithReplacements.updateIn([this.newListIdx], arr =>
+                this.newListWithReplacements = this.newListWithReplacements.updateIn([this.newListIdx], (arr) =>
                     arr.insert(0, this.number)
                 );
             }
@@ -244,30 +244,22 @@ class SimplifiedInsertAll extends BreakpointFunction {
     }
 }
 
-export let formatSimplifiedInsertAllDescription = function(bp, prevBp) {
+export let formatSimplifiedInsertAllDescription = function (bp, prevBp) {
     switch (bp.point) {
         case 'create-new-list':
             return `Создаем новый массив из <code>${bp.newList.size}</code> пустых ячеек`;
         case 'for-loop':
             return `[${bp.originalListIdx + 1}/${bp.originalList.size}] Вставляем <code>${bp.number}</code>`;
         case 'compute-idx':
-            return `Вычисляем индекс ячейки: <code>${bp.newListIdx}</code> == <code>${bp.number} % ${
-                bp.newList.size
-            }</code>`;
+            return `Вычисляем индекс ячейки: <code>${bp.newListIdx}</code> == <code>${bp.number} % ${bp.newList.size}</code>`;
         case 'check-collision':
             return chapter1_2_FormatCheckCollision(bp.newList, bp.newListIdx, bp.fmtCollisionCount);
         case 'next-idx':
-            return `Продолжаем, индекс следующего элемента <code>${bp.newListIdx}</code> == <code>(${
-                prevBp.newListIdx
-            } + 1) % ${bp.newList.size}</code>`;
+            return `Продолжаем, индекс следующего элемента <code>${bp.newListIdx}</code> == <code>(${prevBp.newListIdx} + 1) % ${bp.newList.size}</code>`;
         case 'assign-elem': {
             const prevNumber = prevBp.newList.get(bp.newListIdx);
             if (prevNumber != null) {
-                return `Коллизия чисел <code>${
-                    bp.number
-                }</code> и <code>${prevNumber}</code> в ячейке с индексом <code>${
-                    bp.newListIdx
-                }</code> — значение перезаписано`;
+                return `Коллизия чисел <code>${bp.number}</code> и <code>${prevNumber}</code> в ячейке с индексом <code>${bp.newListIdx}</code> — значение перезаписано`;
             } else {
                 return `Помещаем <code>${bp.number}</code> в ячейку с индексом <code>${bp.newListIdx}</code>`;
             }
@@ -275,7 +267,7 @@ export let formatSimplifiedInsertAllDescription = function(bp, prevBp) {
         case 'return-created-list':
             if (bp.fmtMissingNumbers && bp.fmtMissingNumbers.size > 0) {
                 return `Возвращаем созданный массив. Потеряны числа: ${bp.fmtMissingNumbers
-                    .map(number => `<code>${number}</code>`)
+                    .map((number) => `<code>${number}</code>`)
                     .join(', ')}`;
             } else {
                 return `Возвращаем созданный массив со всеми исходными числами`;
@@ -358,14 +350,12 @@ class SimplifiedSearch extends BreakpointFunction {
     }
 }
 
-export let formatSimplifiedSearchDescription = function(bp) {
+export let formatSimplifiedSearchDescription = function (bp) {
     switch (bp.point) {
         case 'start-execution':
             return `Ищем <code>${bp.number}</code>`;
         case 'compute-idx':
-            return `Вычисляем индекс ячейки: <code>${bp.newListIdx}</code> == <code>${bp.number} % ${
-                bp.newList.size
-            }</code>`;
+            return `Вычисляем индекс ячейки: <code>${bp.newListIdx}</code> == <code>${bp.number} % ${bp.newList.size}</code>`;
         case 'check-not-found':
             return commonFormatCheckNotFound(bp.newList, bp.newListIdx, bp.fmtCollisionCount);
         case 'check-found':
@@ -484,11 +474,11 @@ export class Chapter1_SimplifiedHash extends ChapterComponent {
         };
     }
 
-    runSimplifiedInsertAll = memoizeOne(numbers => {
+    runSimplifiedInsertAll = memoizeOne((numbers) => {
         return Ops.createNew(numbers);
     });
 
-    generateAlternativeDataForInsertAllBroken = memoizeOne(numbers => {
+    generateAlternativeDataForInsertAllBroken = memoizeOne((numbers) => {
         let {bp, overwrittenNumbers} = this.runSimplifiedInsertAllBroken(numbers);
         if (overwrittenNumbers.length > 0) {
             return {originalNumbers: numbers, numbers, bp, addedNumber: null, overwrittenNumbers};
@@ -502,7 +492,7 @@ export class Chapter1_SimplifiedHash extends ChapterComponent {
         }
     });
 
-    runProbingSimple = memoizeOne(slotsCount => {
+    runProbingSimple = memoizeOne((slotsCount) => {
         let g = new GenerateProbingLinks();
         const {links} = g.run(slotsCount, '', 'i+1');
 
@@ -512,7 +502,7 @@ export class Chapter1_SimplifiedHash extends ChapterComponent {
         };
     });
 
-    runSimplifiedInsertAllBroken = memoizeOne(numbers => {
+    runSimplifiedInsertAllBroken = memoizeOne((numbers) => {
         return Ops.createNewBroken(numbers);
     });
 

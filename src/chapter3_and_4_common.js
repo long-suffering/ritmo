@@ -379,12 +379,7 @@ export class HashClassSetItemBase extends HashBreakpointFunction {
             }
 
             this.addBP('check-dup-hash');
-            if (
-                this.self
-                    .get('slots')
-                    .get(this.idx)
-                    .pyHashCode.eq(this.hashCode)
-            ) {
+            if (this.self.get('slots').get(this.idx).pyHashCode.eq(this.hashCode)) {
                 this.addBP('check-dup-key');
                 if (EQ(this.self.get('slots').get(this.idx).key, this.key)) {
                     if (useRecycling) {
@@ -484,12 +479,7 @@ export class HashClassLookdictBase extends HashBreakpointFunction {
             }
 
             this.addBP('check-hash');
-            if (
-                this.self
-                    .get('slots')
-                    .get(this.idx)
-                    .pyHashCode.eq(this.hashCode)
-            ) {
+            if (this.self.get('slots').get(this.idx).pyHashCode.eq(this.hashCode)) {
                 this.addBP('check-key');
                 if (EQ(this.self.get('slots').get(this.idx).key, this.key)) {
                     this.addBP('return-idx');
@@ -746,7 +736,7 @@ export function selectOrCreateResize(pySelf, resizes, getitem, setitem) {
 }
 
 const formatExtraPair = ([k, v]) => `(${displayStr(k)}, ${displayStr(v)})`;
-export const formatExtraPairs = extraPairs => {
+export const formatExtraPairs = (extraPairs) => {
     if (extraPairs.length > 1) {
         return '[' + extraPairs.map(formatExtraPair).join(', ') + ']';
     } else {

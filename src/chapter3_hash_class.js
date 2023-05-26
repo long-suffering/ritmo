@@ -35,7 +35,7 @@ import {ChapterComponent, singularOrPlural, Subcontainerize, DynamicP} from './u
 
 import memoizeOne from 'memoize-one';
 
-let chapter3Extend = Base =>
+let chapter3Extend = (Base) =>
     class extends Base {
         computeIdxAndSave(hashCode, len) {
             this.idx = this.computeIdx(hashCode, len);
@@ -275,7 +275,7 @@ function DynamicPartResize({extraPairs, resize, pairsCount, resizesCount}) {
 }
 
 function DynamicPartSetItemRecycling({hasDummy, outcome, otherOutcomes, handleUpdateRemovedAndInsert}) {
-    const tryIt = onClick => (
+    const tryIt = (onClick) => (
         <button type="button" className="btn btn-primary btn-sm" onClick={onClick}>
             Try it
         </button>
@@ -361,7 +361,7 @@ class FindClosestSizeExample extends React.PureComponent {
         };
     }
 
-    handleInputChange = used => {
+    handleInputChange = (used) => {
         const usedDouble = used.times(2);
         this.setState({
             used,
@@ -401,7 +401,7 @@ export class Chapter3_HashClass extends ChapterComponent {
         };
     }
 
-    runCreateNew = memoizeOne(pairs => {
+    runCreateNew = memoizeOne((pairs) => {
         const {bp, resizes, pySelf} = AlmostPythonDict.__init__(pairs);
         return {bp, pySelf, resizes};
     });
@@ -432,11 +432,11 @@ export class Chapter3_HashClass extends ChapterComponent {
         const hasDummy = originalPySelf.get('fill') !== originalPySelf.get('used');
         let outcome;
         let otherOutcomes = {};
-        const {bp, pySelf: newPySelf, resize} = AlmostPythonDict.__setitem__recycling(
-            originalPySelf,
-            originalKey,
-            originalValue
-        );
+        const {
+            bp,
+            pySelf: newPySelf,
+            resize,
+        } = AlmostPythonDict.__setitem__recycling(originalPySelf, originalKey, originalValue);
 
         if (hasDummy) {
             if (!resize && newPySelf.get('fill') === newPySelf.get('used')) {

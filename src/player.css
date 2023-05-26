@@ -54,7 +54,8 @@ a.player-title svg {
 
     color: #fff;
     /*font-stretch: 112;*/
-    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738;
+    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750,
+        'YTDE' -203, 'YTFI' 738;
 }
 
 .player-buttons {
@@ -129,7 +130,8 @@ a.player-title svg {
     letter-spacing: 1px;
 
     color: #fff;
-    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738;
+    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750,
+        'YTDE' -203, 'YTFI' 738;
 }
 
 .player-play-button {
@@ -247,7 +249,8 @@ a.player-title svg {
     font-size: 18px;
     line-height: 150%;
     color: #fff;
-    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738;
+    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750,
+        'YTDE' -203, 'YTFI' 738;
 }
 
 .player-input {
@@ -267,7 +270,8 @@ a.player-title svg {
     line-height: 150%;
     letter-spacing: -0.03em;
     color: #fff;
-    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750, 'YTDE' -203, 'YTFI' 738;
+    font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750,
+        'YTDE' -203, 'YTFI' 738;
 }
 
 .player-input:focus {

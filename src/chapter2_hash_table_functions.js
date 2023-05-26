@@ -151,9 +151,7 @@ export function formatHashCreateNewAndInsert(bp, prevBp) {
         case 'compute-hash':
             return `Вычисляем хеш-код: <code>${bp.hashCode}</code>`;
         case 'compute-idx':
-            return `Вычисляем индекс начальной ячейки: <code>${bp.idx}</code> == <code>${bp.hashCode} % ${
-                bp.keys.size
-            }</code>`;
+            return `Вычисляем индекс начальной ячейки: <code>${bp.idx}</code> == <code>${bp.hashCode} % ${bp.keys.size}</code>`;
         case 'check-collision':
             return chapter1_2_FormatCheckCollision(bp.keys, bp.idx, bp.fmtCollisionCount);
         case 'check-dup-hash':
@@ -179,9 +177,7 @@ export function formatHashCreateNewAndInsert(bp, prevBp) {
         case 'check-dup-return':
             return 'Потому что ключ найден, стоп';
         case 'next-idx':
-            return `Продолжаем, индекс следующего элемента <code>${bp.idx}</code> == <code>(${prevBp.idx} + 1) % ${
-                bp.keys.size
-            }</code>`;
+            return `Продолжаем, индекс следующего элемента <code>${bp.idx}</code> == <code>(${prevBp.idx} + 1) % ${bp.keys.size}</code>`;
         case 'assign-elem':
             if (prevBp.keys.get(bp.idx) === null) {
                 return `Поместим элемент <code>${displayStr(bp.key)}</code> и его хеш-код <code>${
@@ -216,9 +212,7 @@ export function formatHashRemoveSearch(bp, prevBp) {
         case 'compute-hash':
             return `Вычисляем хеш-код: <code>${bp.hashCode}</code>`;
         case 'compute-idx':
-            return `Вычисляем индекс начальной ячейки: <code>${bp.hashCode} % ${bp.keys.size}</code> == <code>${
-                bp.idx
-            }</code>`;
+            return `Вычисляем индекс начальной ячейки: <code>${bp.hashCode} % ${bp.keys.size}</code> == <code>${bp.idx}</code>`;
         case 'check-not-found':
             return commonFormatCheckNotFound(bp.keys, bp.idx, bp.fmtCollisionCount);
         case 'check-hash':
@@ -244,9 +238,7 @@ export function formatHashRemoveSearch(bp, prevBp) {
         case 'return':
             return `Ключ удален`;
         case 'next-idx':
-            return `Продолжаем, индекс следующего элемента <code>${bp.idx}</code> == <code>(${prevBp.idx} + 1) % ${
-                bp.keys.size
-            }</code>`;
+            return `Продолжаем, индекс следующего элемента <code>${bp.idx}</code> == <code>(${prevBp.idx} + 1) % ${bp.keys.size}</code>`;
         case 'throw-key-error':
             return `Бросаем исключение, потому что ключ не найден`;
         /* search */
@@ -433,9 +425,7 @@ export function formatHashResize(bp, prevBp) {
         case 'check-collision':
             return chapter1_2_FormatCheckCollision(bp.newKeys, bp.idx, bp.fmtCollisionCount);
         case 'next-idx':
-            return `Продолжаем, индекс следующего элемента <code>${bp.idx}</code> == <code>(${prevBp.idx} + 1) % ${
-                bp.keys.size
-            }</code>`;
+            return `Продолжаем, индекс следующего элемента <code>${bp.idx}</code> == <code>(${prevBp.idx} + 1) % ${bp.keys.size}</code>`;
         case 'assign-elem':
             return `Поместим <code>${displayStr(bp.key)}</code> и его хеш-код <code>${
                 bp.hashCode
@@ -540,7 +530,7 @@ export class HashExamples extends React.Component {
                     <PyStringInput
                         inline={true}
                         value={this.state.string}
-                        onChange={value => this.setState({string: value})}
+                        onChange={(value) => this.setState({string: value})}
                     />
                     <code>)</code> = <code>{pyHashUnicode(this.state.string)}</code>
                 </div>
@@ -550,7 +540,7 @@ export class HashExamples extends React.Component {
                     <PyNumberInput
                         inline={true}
                         value={this.state.integer}
-                        onChange={value => this.setState({integer: value})}
+                        onChange={(value) => this.setState({integer: value})}
                     />
                     <code>)</code> = <code>{pyHashLong(BigNumber(this.state.integer)).toFixed()}</code>
                 </div>
@@ -613,7 +603,7 @@ export class Ops {
 }
 
 function ListDescription({array}) {
-    let countStr = array.filter(e => typeof e === 'string').length;
+    let countStr = array.filter((e) => typeof e === 'string').length;
     let countNum = array.length - countStr;
     if (countStr > 0 && countNum > 0) {
         return 'a mixed list of integers and strings';
@@ -650,7 +640,7 @@ class HashResizeInPlaceAnimation extends React.PureComponent {
 
     runAnimation = () => {
         console.log('runAnimation');
-        this.setState(state => ({
+        this.setState((state) => ({
             isStart: !state.isStart,
         }));
     };
