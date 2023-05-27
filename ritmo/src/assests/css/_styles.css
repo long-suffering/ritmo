@@ -1,0 +1,656 @@
+/* FROM: https://stackoverflow.com/questions/12502234/how-to-prevent-webkit-text-rendering-change-during-css-transition */
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol,
+ul {
+    list-style: none;
+}
+blockquote,
+q {
+    quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    body {
+        -webkit-font-smoothing: subpixel-antialiased;
+    }
+}
+
+body #root {
+    color: black;
+    font-family: 'IBM Plex Sans';
+}
+
+pre {
+    font-family: 'IBM Plex Mono';
+}
+
+.app-container,
+.footer-container {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.app-container {
+    padding-top: 20px;
+}
+
+.footer-container {
+    margin-top: 40px;
+    padding-bottom: 30px;
+}
+
+.footer-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.footer-list-item {
+    padding-right: 30px;
+    padding-bottom: 8px;
+}
+
+.chapter > .subcontainer {
+    max-width: 768px;
+}
+
+.my-full-width {
+    max-width: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+}
+
+code,
+.parsable-input,
+.invalid-feedback.invalid-feedback-block-parsable-input {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+p,
+a,
+li,
+blockquote {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 400;
+}
+
+.parsable-input,
+.parsable-input-autosize {
+    /*font-size: 14px;*/
+}
+
+div.hash-example-instance {
+    padding-bottom: 10px;
+}
+
+.invalid-feedback.invalid-feedback-block-parsable-input {
+    padding-left: 8px;
+    font-size: 14px;
+    white-space: pre;
+    margin-top: 0px;
+    background-color: rgba(220, 53, 69, 0.25); /* from box-shadow color of input in bootstrap  */
+}
+
+h1 {
+    font-family: 'Roboto Flex';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 72px;
+    line-height: 56px;
+    /* or 78% */
+
+    letter-spacing: 0.065em;
+
+    color: #ffffff;
+    font-variation-settings: 'GRAD' 0, 'slnt' 0, 'XTRA' 560, 'XOPQ' 96, 'YOPQ' 115, 'YTLC' 514, 'YTUC' 712, 'YTAS' 720,
+        'YTDE' -249, 'YTFI' 738, 'opsz' 87;
+}
+
+.parsable-input-with-error-div {
+    background-color: #fff;
+}
+
+.parsable-input-inline {
+    display: inline-block;
+}
+
+.parsable-input-block {
+    min-width: 300px;
+}
+
+.array-vis,
+.hash-vis-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.hash-vis-wrapper {
+    display: flex;
+}
+
+.hash-vis {
+    transform-style: preserve-3d;
+}
+
+.tetris-labels {
+    display: flex;
+    flex-direction: column;
+}
+
+.tetris-label-div {
+    display: flex;
+    align-items: center;
+}
+
+.tetris-label {
+    /* make it align to the right */
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.box {
+    display: flex;
+    font-family: 'IBM Plex Mono', monospace;
+    position: absolute;
+    opacity: 1;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    margin-right: 10px;
+}
+
+.box-content {
+    word-wrap: break-word;
+    min-width: 0;
+    z-index: 2;
+    transform: translateZ(2px);
+    position: relative;
+}
+
+.box-content-extra-type {
+    color: grey;
+}
+
+.box-empty {
+    background: #f4f4f7;
+    z-index: -1;
+}
+
+.box-full {
+    background: #e5e6f1;
+}
+
+.box-animated {
+    transition-property: opacity, transform;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+}
+
+.active-box-selection {
+    background: rgba(252, 233, 168);
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+    position: absolute;
+}
+
+.active-box-selection-1 {
+    border: none;
+}
+
+.active-box-selection-2 {
+    /* border-style: dashed; */
+    border: none;
+}
+
+.active-box-selection-animated {
+    transition-property: opacity, transform;
+    transition-timing-function: ease;
+}
+
+.box.box-created,
+.box.box-removing,
+.box.box-removed {
+    opacity: 0;
+}
+
+.box.box-removed,
+.box.box-created {
+    transition: none;
+}
+
+.highlight {
+    background-color: #fcf8e3;
+}
+
+/*pre > code,
+.code-explanation,
+.code-explanation > code {
+    font-size: 12px !important;
+}*/
+
+.code-block {
+    /*line-height: 1.15;*/
+    margin-bottom: 15px;
+}
+
+.code-block-with-annotations-scrollbar-container .scrollbar-track-y {
+    left: 0px !important;
+    right: none !important;
+}
+
+.scrollbar-track-y {
+    width: 4px !important;
+}
+
+.scrollbar-thumb-y {
+    width: 4px !important;
+}
+
+.scrollbar-track-x {
+    height: 4px !important;
+}
+
+.scrollbar-thumb-x {
+    height: 4px !important;
+}
+
+.visualized-code > .code-block-row {
+    margin-top: 20px;
+}
+
+.code-block-with-annotations {
+    border-radius: 16px;
+    border: 1px solid #ffffffc7 !important;
+    background-color: rgb(255 255 255 / 31%);
+    line-height: 1.15;
+    /*margin: 10px;*/
+    white-space: nowrap;
+    margin: 10px 0 10px 10px;
+    padding: 10px;
+}
+
+pre.code-line-container {
+    width: 40%;
+    margin: 0;
+    display: inline;
+}
+
+pre {
+    font-size: 100%;
+    overflow: hidden;
+}
+
+.line-with-annotation.current-line-highlight,
+.line-with-annotation.current-line-highlight:hover,
+.mobile-short-explanation {
+    background-color: rgba(66, 255, 59, 0.22);
+}
+
+.cross-fade-leave {
+    opacity: 1;
+}
+
+.cross-fade-leave.cross-fade-leave-active {
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+}
+
+.cross-fade-enter {
+    opacity: 0;
+}
+.cross-fade-enter.cross-fade-enter-active {
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
+}
+
+.cross-fade-height {
+    transition: height 0.5s ease-in-out;
+}
+
+.fc-inline {
+    display: inline-block !important;
+    width: 75px !important;
+    line-height: 1 !important;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+div.visualized-code {
+    margin-top: 25px;
+    margin-bottom: 35px;
+    padding-left: 18px;
+}
+
+.hl-left {
+    border-left: solid 4px #999999;
+}
+
+.tetris {
+    display: flex;
+    padding-bottom: 5px;
+}
+
+/* supposedly creates another layer */
+.fix-animation {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.tetris-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+blockquote.blockquote {
+    font-size: 1rem !important;
+    background: #f9f9f9;
+    border-left: 5px solid #ccc;
+    padding: 0.5em 10px;
+    margin-top: 5px;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.slider-controls {
+    margin-bottom: 10px;
+}
+
+.slider-controls-button-short {
+    width: 40px;
+}
+
+.button-without-scbl-hideable {
+    width: 100px;
+}
+
+@media (max-width: 600px) {
+    .button-with-scbl-hideable {
+        width: 40px;
+    }
+
+    .scbl-hideable {
+        display: none;
+    }
+
+    .input-toolbar-button-label {
+        display: none;
+    }
+}
+
+@media (min-width: 601px) {
+    .button-with-scbl-hideable {
+        width: 100px;
+    }
+
+    .scbl-hideable {
+    }
+
+    .input-toolbar-button-label {
+    }
+}
+
+.my-sticky-outer-outer-wrapper {
+    margin-bottom: 12px;
+}
+
+.my-sticky-wrapper {
+    padding-top: 5px;
+}
+
+.sticky-outer-wrapper .my-sticky-wrapper {
+    margin-left: -30px;
+    padding-left: 30px;
+    margin-right: -30px;
+    padding-right: 30px;
+}
+
+.sticky-outer-wrapper.active .my-sticky-wrapper {
+    animation: 0.5s stickied-animation 0s ease;
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+    background: white;
+}
+
+.sticky-outer-wrapper:not(.active) .my-sticky-wrapper {
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+
+@keyframes stickied-animation {
+    0% {
+        transform: translateX(0px);
+    }
+    14% {
+        transform: translateX(10px);
+    }
+    28% {
+        transform: translateX(-10px);
+    }
+    42% {
+        transform: translateX(-5px);
+    }
+    56% {
+        transform: translateX(5px);
+    }
+    70% {
+        transform: translateX(-2px);
+    }
+    85% {
+        transform: translateX(2px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.row-block-input-toolbar {
+    background: white;
+}
+
+.row-block-input-toolbar .col-input {
+    margin-bottom: 5px;
+}
+
+.row-block-input-toolbar .col-buttons {
+    margin-bottom: 5px;
+}
+
+.force-stick-to-top {
+    position: sticky !important;
+    top: 5px;
+    z-index: 1000;
+}
+
+.badge-undo-redo-count {
+    font-family: 'IBM Plex Mono', monospace;
+    min-width: 22px;
+}
+
+.div-p {
+    margin-bottom: 16px;
+}
+
+.toc-a:hover {
+    text-decoration: none !important;
+}
+
+.toc-a:hover .toc-title {
+    text-decoration: underline !important;
+}
+
+.line-with-annotation {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.code-line-container,
+.code-explanation {
+    flex-shrink: 0;
+}
+
+.dynamic-p {
+    margin-bottom: 0;
+}
+
+.dynamic-p-inner-wrapper {
+    transition-property: background-color;
+    transition-duration: 750ms;
+    transition-function: ease;
+}
+
+footer a.link {
+    color: rgba(0, 0, 0);
+    border: none;
+}
+
+footer a.link:hover {
+    text-decoration: none;
+    color: #b03000;
+    border: none;
+}
+
+footer {
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+
+.hash-examples {
+    margin-top: 8px;
+}
+
+@media screen and (min-width: 481px) {
+    .line-with-annotation:hover {
+        background: rgba(59, 248, 255, 0.22);
+        cursor: pointer;
+        width: 100%;
+    }
+}

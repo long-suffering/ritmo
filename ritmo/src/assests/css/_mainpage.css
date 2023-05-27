@@ -1,0 +1,334 @@
+body,
+html {
+    padding: 0;
+    margin: 0;
+}
+
+.fluid-body {
+    background-color: #0e1719;
+}
+
+.frontpage {
+    padding: 10px;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #0e1719;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section .placeholder {
+    border: 1px solid #979797;
+    border-radius: 16px;
+    height: 300px;
+    width: 49.5%;
+    opacity: 0.3;
+}
+
+.section .lesson-pane-stack {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.frontpage .header {
+    border: 1px solid #34353a;
+    border-radius: 16px;
+    height: 426px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.frontpage .header > .title {
+    font-size: 70px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.frontpage .header > .definition {
+    display: flex;
+    flex-direction: column;
+    padding-top: 14px;
+    font-size: 21px;
+    line-height: 1.2;
+    margin-left: auto;
+}
+
+.frontpage h1 {
+    font-size: 60px;
+    font-weight: 400;
+
+    line-height: 1.2;
+    margin: 15px 0;
+}
+
+.frontpage .panes-container {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+.frontpage .pane {
+    display: flex;
+    border-radius: 16px;
+    height: 300px;
+    text-decoration: none !important;
+    color: #000 !important;
+    width: 49.5%;
+    transition: opacity 0.3s ease;
+    margin: 10px 0;
+}
+
+.frontpage .pane:hover {
+    opacity: 0.9;
+}
+
+.frontpage .pane span {
+    margin-top: 40px;
+    margin-left: 30px;
+    font-family: 'Roboto Flex';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 36px;
+    /* or 90% */
+
+    letter-spacing: 0.125em;
+
+    color: #000000;
+    font-stretch: 134;
+    font-variation-settings: 'GRAD' 0, 'slnt' 0, 'XTRA' 560, 'XOPQ' 96, 'YOPQ' 115, 'YTLC' 514, 'YTUC' 712, 'YTAS' 720,
+        'YTDE' -249, 'YTFI' 738, 'opsz' 87;
+}
+
+.frontpage .pane .vis-wrapper {
+    padding-left: 10px;
+}
+
+.frontpage .sorts-collection {
+    display: flex;
+    flex-direction: row;
+    height: 370px;
+    width: 100%;
+}
+
+.frontpage .bubble-sort {
+    background-color: #72e1d1;
+}
+
+.frontpage .quick-sort {
+    background-color: #e3444a;
+}
+
+.frontpage .sort-1 {
+    width: 50%;
+}
+
+.frontpage .sort-2 {
+    width: 50%;
+}
+
+.frontpage .simplified-hash-collisions {
+    background-color: #ff7001;
+}
+
+.frontpage .simplified-hash-search {
+    background-color: #f49f0a;
+}
+
+.frontpage .simplified-hash-create {
+    background-color: #ffff64;
+}
+
+.frontpage .simplified-hash-collection {
+    display: flex;
+    flex-direction: row;
+}
+
+.frontpage .simplified-hash-collection-left {
+    display: flex;
+}
+
+.frontpage .simplified-hash-collection-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.frontpage .hash-collection {
+    display: flex;
+    flex-direction: column;
+}
+
+.frontpage .hash-collection-top {
+    display: flex;
+    flex-direction: row;
+    height: 180px;
+}
+
+.frontpage .hash-collection-bottom {
+    display: flex;
+    flex-direction: row;
+    height: 180px;
+}
+
+.frontpage .hash-create {
+    background-color: #e86a92;
+    color: black !important;
+    margin-right: 10px;
+}
+
+.frontpage .hash-search {
+    background-color: #f7e733;
+}
+
+.frontpage .hash-remove {
+    background-color: #c7ef00;
+    margin-right: 10px;
+}
+
+.frontpage .hash-resize {
+    background-color: #f2bb05;
+}
+
+@media screen and (max-width: 890px) {
+    .frontpage {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .frontpage .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .frontpage .header > .title {
+        font-size: 26px;
+        line-height: 1.3;
+        font-weight: 700;
+    }
+
+    .frontpage .header > .definition {
+        flex-direction: row;
+
+        padding-top: 5px;
+        font-size: 12px;
+        line-height: 1.2;
+        padding-left: 0px;
+        margin-left: 0px;
+    }
+
+    .frontpage .header > .definition > .definition-1:after {
+        content: '\00a0';
+    }
+
+    .frontpage h1 {
+        font-size: 26px;
+        font-weight: 400;
+
+        line-height: 1.2;
+    }
+
+    .frontpage .panes-container {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .frontpage .pane {
+        display: flex;
+
+        border-radius: 5px;
+        margin-bottom: 5px;
+        text-decoration: none !important;
+
+        color: white !important;
+    }
+
+    .frontpage .pane span {
+        font-weight: 200;
+
+        margin-top: 6px;
+        margin-left: 10px;
+        font-size: 34px;
+    }
+
+    .frontpage .hash-collection {
+        height: 300px;
+    }
+
+    .frontpage .hash-collection-top {
+        width: 100%;
+        height: 50%;
+        flex-direction: column;
+    }
+
+    .frontpage .hash-collection-bottom {
+        width: 100%;
+        height: 50%;
+        flex-direction: column;
+    }
+
+    .frontpage .hash-collection-bottom > *,
+    .frontpage .hash-collection-top > * {
+        height: 50%;
+        width: 100%;
+    }
+
+    .frontpage .simplified-hash-collection {
+        height: 210px;
+        flex-direction: column;
+    }
+
+    .frontpage .simplified-hash-collection > * {
+        width: 100%;
+    }
+
+    .frontpage .hash-remove {
+        margin-right: 5px;
+    }
+
+    .frontpage .hash-remove {
+        margin-right: 5px;
+    }
+
+    .frontpage .simplified-hash-collisions {
+        margin-right: 0px;
+        height: 70px;
+    }
+
+    .frontpage .simplified-hash-search,
+    .frontpage .simplified-hash-create,
+    .frontpage .bubble-sort,
+    .frontpage .quick-sort {
+        margin-right: 0px;
+        height: 70px;
+    }
+
+    .frontpage .sort-2,
+    .frontpage .sort-1 {
+        width: 100%;
+    }
+
+    .frontpage .sorts-collection {
+        height: 140px;
+        flex-direction: column;
+    }
+
+    .frontpage .hash-create {
+        color: black !important;
+        margin-right: 5px;
+    }
+
+    a.link {
+        font-size: 12px;
+    }
+}

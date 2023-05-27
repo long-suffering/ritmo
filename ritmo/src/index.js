@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {initUxSettings} from './utils';
-import './index.css';
+import { initUxSettings } from './utils';
+import './assests/css/index.css'
 
 (function initialRender() {
     initUxSettings();
