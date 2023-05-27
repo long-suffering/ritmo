@@ -1,13 +1,21 @@
-import { windowDimensions } from "../../store";
 import { observer } from "mobx-react";
+import { useParams } from "react-router-dom";
+
+import { lessonList } from "../../constants";
+import { Player } from "./fragments";
+import { windowDimensions } from "../../store";
 
 export const LessonPage = observer(() => {
-  const { width, height } = windowDimensions
-  console.log(width, height);
+  const { id: lessonId } = useParams();
+
+  const { width, height } = windowDimensions;
 
   return (
-    <>
-      <h1>LESSON</h1>
-    </>
+    <Player
+      {...lessonList[lessonId]}
+      windowHeight={height}
+      windowWidth={width}
+      lessonId={lessonId}
+    />
   );
 });

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
 import { LessonPane } from "../lesson_pane";
-import { lessonList } from "./_constants";
+import { lessonList } from "../../../../constants";
 
 export const OpenAddressing = () => {
   const hashCreate = useMemo(() => lessonList.hash_create, [])

@@ -1,45 +1,51 @@
-import _ from 'lodash';
-import classNames from 'classnames';
-import memoizeOne from 'memoize-one';
-import * as React from 'react';
+import _ from "lodash";
+import classNames from "classnames";
+import memoizeOne from "memoize-one";
+import * as React from "react";
 
-import {BigNumber} from 'bignumber.js';
+import low from "lowlight/lib/core";
 
-import low from 'lowlight/lib/core';
+import unified from "unified";
+import rehypestringify from "rehype-stringify";
 
-import unified from 'unified';
-import rehypestringify from 'rehype-stringify';
+import pythonHl from "highlight.js/lib/languages/python";
 
-import pythonHl from 'highlight.js/lib/languages/python';
-low.registerLanguage('python', pythonHl);
+import Slider from "rc-slider/lib/Slider";
+import "rc-slider/assets/index.css";
 
-import HighLightJStyle from 'highlight.js/styles/default.css';
+import SmoothScrollbar from "react-smooth-scrollbar";
 
-import Slider from 'rc-slider/lib/Slider';
-import 'rc-slider/assets/index.css';
+import {
+    BLUE,
+    DebounceWhenOutOfView,
+    getUxSettings,
+    MyErrorBoundary,
+    RED
+} from "./util";
+import { displayStr, repr } from "./hash_impl_common";
+import { globalSettings } from "./store";
+import { observer } from "mobx-react";
 
-import SmoothScrollbar from 'react-smooth-scrollbar';
-
-import {MyErrorBoundary, getUxSettings, DebounceWhenOutOfView, RED, BLUE, isDefinedSmallBoxScreen} from './util';
-import {isNone, isDummy, repr, displayStr} from './hash_impl_common';
-import {globalSettings} from './store';
-import {observer} from 'mobx-react';
-
-import {library} from '@fortawesome/fontawesome-svg-core';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPlay} from '@fortawesome/free-solid-svg-icons/faPlay';
-import {faStepForward} from '@fortawesome/free-solid-svg-icons/faStepForward';
-import {faStepBackward} from '@fortawesome/free-solid-svg-icons/faStepBackward';
-import {faFastForward} from '@fortawesome/free-solid-svg-icons/faFastForward';
-import {faFastBackward} from '@fortawesome/free-solid-svg-icons/faFastBackward';
-import {faPause} from '@fortawesome/free-solid-svg-icons/faPause';
-import {faRedoAlt} from '@fortawesome/free-solid-svg-icons/faRedoAlt';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons/faPlay";
+import { faStepForward } from "@fortawesome/free-solid-svg-icons/faStepForward";
+import {
+    faStepBackward
+} from "@fortawesome/free-solid-svg-icons/faStepBackward";
+import { faFastForward } from "@fortawesome/free-solid-svg-icons/faFastForward";
+import {
+    faFastBackward
+} from "@fortawesome/free-solid-svg-icons/faFastBackward";
+import { faPause } from "@fortawesome/free-solid-svg-icons/faPause";
+import { faRedoAlt } from "@fortawesome/free-solid-svg-icons/faRedoAlt";
 import {
     List as ImmutableList,
     Map as ImmutableMap,
-    fromJS as immutableFromJS,
-    Record as ImmutableRecord,
-} from 'immutable';
+    Record as ImmutableRecord
+} from "immutable";
+
+low.registerLanguage('python', pythonHl);
 
 library.add(faPlay);
 library.add(faStepForward);

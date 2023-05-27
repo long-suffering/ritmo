@@ -464,6 +464,7 @@ export class Player extends React.Component {
                                 </div>
                             </div>
                         )}
+
                         {/*{this.props.theory && (*/}
                         {/*    <div*/}
                         {/*        className={classnames(*/}

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 
 import { LessonPane } from "../lesson_pane";
-import { lessonList } from "./_constants";
+import { lessonList } from "../../../../constants";
 
 export const SimplestHashTables = () => {
   const simplifiedHashCollisions = useMemo(() => lessonList.simplified_hash_collisions, [])
