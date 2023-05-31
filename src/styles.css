@@ -309,6 +309,14 @@ h1 {
     z-index: 2;
     transform: translateZ(2px);
     position: relative;
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 21px;
+    /* identical to box height, or 100% */
+
+    letter-spacing: -0.03em;
 }
 
 .box-content-extra-type {
@@ -316,7 +324,7 @@ h1 {
 }
 
 .box-empty {
-    background: #f4f4f7;
+    background:  rgba(35, 57, 64, 0.05);
     z-index: -1;
 }
 
@@ -325,15 +333,16 @@ h1 {
 }
 
 .box-animated {
+    background-color: rgba(35, 57, 64, 0.05) !important;
     transition-property: opacity, transform;
     transition-duration: 0.5s;
     transition-timing-function: ease;
 }
 
 .active-box-selection {
-    background: rgba(252, 233, 168);
-    width: 40px;
-    height: 40px;
+    background: #F7EEBE;
+    width: 58px !important;
+    height: 58px !important;
     z-index: 2;
     position: absolute;
 }

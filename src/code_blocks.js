@@ -96,12 +96,12 @@ export const DEFAULT_BOX_GEOMETRY = {
 };
 
 export const SMALLER_BOX_GEOMETRY = {
-    boxGeometry: {boxSize: 30, boxPadding: 1, spacingX: 1, spacingY: 4, fontSize: 9, borderRadius: 7.5},
+    boxGeometry: {boxSize: 50, boxPadding: 1, spacingX: 10, spacingY: 4, fontSize: 9, borderRadius: 7.5},
     labelFontSize: 12,
 };
 
 export const LARGER_BOX_GEOMETRY = {
-    boxGeometry: {boxSize: 50, boxPadding: 1, spacingX: 1, spacingY: 4, fontSize: 15, borderRadius: 12},
+    boxGeometry: {boxSize: 56, boxPadding: 1, spacingX: 10, spacingY: 4, fontSize: 21, borderRadius: 8},
     labelFontSize: 16,
 };
 
@@ -435,6 +435,7 @@ class Box extends React.PureComponent {
                             lineHeight: `${fontSize}px`,
                             borderRadius,
                             padding: boxPadding,
+                            marginRight: '10px',
                             ...extraStyle,
                         }}
                         className={classNames(classesContent, 'box-content-wrapper')}
@@ -553,7 +554,7 @@ class BaseBoxesComponent extends React.PureComponent {
         if (targetModId) {
             gcModId = Math.max(gcModId, targetModId);
         }
-        console.log('BaseBoxesComponent markRemoved', gcModId);
+        // console.log('BaseBoxesComponent markRemoved', gcModId);
         for (const [key, data] of state.keyData.entries()) {
             if (data.status === 'removing' && data.modId <= gcModId) {
                 updatedCount++;
@@ -564,7 +565,7 @@ class BaseBoxesComponent extends React.PureComponent {
             }
         }
         if (updatedCount > 0) {
-            console.log('BaseBoxesComponent.markRemoved() removed', updatedCount);
+            // console.log('BaseBoxesComponent.markRemoved() removed', updatedCount);
             return {
                 keyData: state.keyData.mergeDeep(toMerge),
                 needReflow: true,
@@ -628,7 +629,7 @@ class BaseBoxesComponent extends React.PureComponent {
 
         let newState;
         const t2 = performance.now();
-        console.log('BaseBoxesComponent::gdsp before update state timing', t2 - t1);
+        // console.log('BaseBoxesComponent::gdsp before update state timing', t2 - t1);
         if (!state.firstRender) {
             // This should help when setState is called after needProcessCreatedAfterRender = true
             // (And also can possible help sometimes when a slider is dragged)
@@ -1021,7 +1022,7 @@ class BaseBoxesComponent extends React.PureComponent {
     }
 
     static garbageCollect(state, targetModId) {
-        console.log('Boxes garbageCollect() older than', targetModId);
+        // console.log('Boxes garbageCollect() older than', targetModId);
         const t1 = performance.now();
 
         const removed = [];
