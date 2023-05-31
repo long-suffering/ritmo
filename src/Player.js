@@ -20,6 +20,7 @@ import {ParsableInputBase} from './inputs';
 import _ from 'lodash';
 import {dumpPyList, dumpSimplePyObj, parsePyList, parsePyNumber, parsePyStringOrNumberOrNone} from './py_obj_parsing';
 import {ArrowLeft} from './icons/_ArrowLeft';
+import { Link } from "react-router-dom";
 
 class PlayerInput extends ParsableInputBase {
     ERROR_COLOR = 'rgb(222, 39, 22)';
@@ -434,12 +435,7 @@ export class Player extends React.Component {
                     >
                         <div style={{display: 'flex', alignItems: 'center'}}>
                             {(!this.state.showingTheory || !isMobile) && (
-                                <a
-                                    className="player-title"
-                                    href="/"
-                                    onClick={this.navigateHome}
-                                    children={<ArrowLeft />}
-                                />
+                              <Link to="/" className="player-title" children={<ArrowLeft />} />
                             )}
                             {!isMobile && (
                                 <div className="player-lesson-name">
@@ -477,43 +473,6 @@ export class Player extends React.Component {
                         {/*    </div>*/}
                         {/*)}*/}
                     </div>
-
-                    <div className="player-slider-wrapper">
-                        <Slider
-                            // marks={marks}
-                            onChange={this.handleSliderValueChange}
-                            min={0}
-                            max={this.maxTime() * this.SLIDER_MULTIPLIER}
-                            value={this.state.sliderTime * this.SLIDER_MULTIPLIER}
-                            style={mobileSliderStyle}
-                            dotStyle={{
-                                top: 0,
-                                height: 3,
-                                width: 3,
-                                borderRadius: 0,
-                                backgroundColor: 'white',
-                                border: 'none',
-                            }}
-                            handleStyle={{
-                                height: 12,
-                                width: 12,
-                                marginTop: -4.5,
-                                backgroundColor: '#FF3B99',
-                                border: 'none',
-                            }}
-                            railStyle={{
-                                height: 2,
-                                cursor: 'pointer',
-                                backgroundColor: '#ffffff',
-                            }}
-                            trackStyle={{
-                                height: 2,
-                                cursor: 'pointer',
-                                backgroundColor: '#FF3B99',
-                            }}
-                            className={classnames(isMobile && 'slider-mobile-extra')}
-                        />
-                    </div>
                     {!isMobile && inputs && inputs.length && (
                         <div className="player-inputs-outer">
                             <div className="player-inputs-inner">
@@ -536,6 +495,42 @@ export class Player extends React.Component {
                     )}
                     <div className="player-main">
                         <div className="player-code-and-visualisation" style={{width: codeVisWidth}}>
+                            <div className="player-slider-wrapper">
+                                <Slider
+                                  // marks={marks}
+                                  onChange={this.handleSliderValueChange}
+                                  min={0}
+                                  max={this.maxTime() * this.SLIDER_MULTIPLIER}
+                                  value={this.state.sliderTime * this.SLIDER_MULTIPLIER}
+                                  style={mobileSliderStyle}
+                                  dotStyle={{
+                                      top: 0,
+                                      height: 3,
+                                      width: 3,
+                                      borderRadius: 0,
+                                      backgroundColor: 'white',
+                                      border: 'none',
+                                  }}
+                                  handleStyle={{
+                                      height: 12,
+                                      width: 12,
+                                      marginTop: -4.5,
+                                      backgroundColor: 'rgb(255 0 0)',
+                                      border: 'none',
+                                  }}
+                                  railStyle={{
+                                      height: 2,
+                                      cursor: 'pointer',
+                                      backgroundColor: '#ad9d95',
+                                  }}
+                                  trackStyle={{
+                                      height: 2,
+                                      cursor: 'pointer',
+                                      backgroundColor: 'rgb(255 0 0)',
+                                  }}
+                                  className={classnames(isMobile && 'slider-mobile-extra')}
+                                />
+                            </div>
                             <CodeBlockWithActiveLineAndAnnotations
                                 height={codeHeight}
                                 time={time}
@@ -549,14 +544,16 @@ export class Player extends React.Component {
                                 mobileHeaderTitle={mobileHeaderTitle}
                             />
                             <div className="player-state-vis-wrapper" style={mobileVisWrapperStyle}>
-                                <StateVisualization
-                                    bp={bp}
-                                    epoch={this.state.breakpointsUpdatedCounter}
-                                    innerRef={this.componentRef}
-                                    windowWidth={windowWidth}
-                                    windowHeight={windowHeight}
-                                    overflow={false}
-                                />
+                                <div className="player-state-vis-wrapper-overlay">
+                                    <StateVisualization
+                                      bp={bp}
+                                      epoch={this.state.breakpointsUpdatedCounter}
+                                      innerRef={this.componentRef}
+                                      windowWidth={windowWidth}
+                                      windowHeight={windowHeight}
+                                      overflow={false}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

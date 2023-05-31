@@ -37,10 +37,6 @@ a.player-title {
     justify-content: center;
 }
 
-a.player-title svg {
-    margin-left: 13px;
-}
-
 .player-lesson-name {
     margin-left: 10px;
     font-family: 'Roboto Flex';
@@ -52,7 +48,7 @@ a.player-title svg {
 
     letter-spacing: -0.03em;
 
-    color: #fff;
+    color: #000000;
     /*font-stretch: 112;*/
     font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750,
         'YTDE' -203, 'YTFI' 738;
@@ -129,7 +125,7 @@ a.player-title svg {
     text-transform: uppercase;
     letter-spacing: 1px;
 
-    color: #fff;
+    color: #000000;
     font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750,
         'YTDE' -203, 'YTFI' 738;
 }
@@ -161,16 +157,25 @@ a.player-title svg {
 
 .player-slider-wrapper {
     padding-left: 10px;
-    padding-right: 10px;
+    /*padding-right: 10px;*/
 }
 
 .player-state-vis-wrapper {
     border-radius: 16px;
-    border: 1px solid #ffffffc7 !important;
-    background-color: rgb(255 255 255 / 31%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    height: 100%;
     min-height: 100%;
     margin: 10px 0 10px 10px;
-    padding: 10px;
+    padding: 8px;
+}
+
+.player-state-vis-wrapper .player-state-vis-wrapper-overlay {
+    background: #F4F5F5;
+    border-radius: 6px;
+    height: calc(100% - 16px);
+    overflow: hidden;
+    padding: 8px;
 }
 
 .player-main {
@@ -260,7 +265,7 @@ a.player-title svg {
     border-radius: 8px;
     height: 45px;
     background: rgb(255 255 255 / 31%);
-    border: 1px solid #ffffffc7 !important;
+    border: 1px solid #e5e5e5 !important;
     padding: 0 10px;
 
     font-family: 'Roboto Flex';
@@ -269,7 +274,7 @@ a.player-title svg {
     font-size: 18px;
     line-height: 150%;
     letter-spacing: -0.03em;
-    color: #fff;
+    color: rgb(0 0 0 / 72%);
     font-variation-settings: 'GRAD' 50, 'slnt' 0, 'XTRA' 468, 'XOPQ' 96, 'YOPQ' 60, 'YTLC' 514, 'YTUC' 712, 'YTAS' 750,
         'YTDE' -203, 'YTFI' 738;
 }

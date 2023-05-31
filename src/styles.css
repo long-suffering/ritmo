@@ -125,6 +125,8 @@ table {
     border-spacing: 0;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto+Flex:wght@100;200;500;600;700;800;900;1000&display=swap');
+
 @media screen and (-webkit-min-device-pixel-ratio: 2) {
     body {
         -webkit-font-smoothing: subpixel-antialiased;
@@ -137,7 +139,15 @@ body #root {
 }
 
 pre {
-    font-family: 'IBM Plex Mono';
+    font-family: 'JetBrains Mono', monospace !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    /* identical to box height, or 21px */
+
+    letter-spacing: -0.03em;
+    color: rgb(0 0 0 / 72%);
 }
 
 .app-container,
@@ -187,7 +197,15 @@ h6 {
 code,
 .parsable-input,
 .invalid-feedback.invalid-feedback-block-parsable-input {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    /* identical to box height, or 21px */
+
+    letter-spacing: -0.03em;
+    color: rgb(0 0 0 / 72%);
 }
 
 p,
@@ -387,13 +405,20 @@ h1 {
 
 .code-block-with-annotations {
     border-radius: 16px;
-    border: 1px solid #ffffffc7 !important;
-    background-color: rgb(255 255 255 / 31%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #fff;
     line-height: 1.15;
     /*margin: 10px;*/
     white-space: nowrap;
     margin: 10px 0 10px 10px;
-    padding: 10px;
+    padding: 8px;
+}
+
+.code-block-with-annotations .code-block-with-annotations-overlay {
+    background: #F4F5F5;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 8px;
 }
 
 pre.code-line-container {
@@ -403,6 +428,16 @@ pre.code-line-container {
 }
 
 pre {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    /* identical to box height, or 21px */
+
+    letter-spacing: -0.03em;
+    color: rgb(0 0 0 / 72%);
+
     font-size: 100%;
     overflow: hidden;
 }
@@ -410,7 +445,11 @@ pre {
 .line-with-annotation.current-line-highlight,
 .line-with-annotation.current-line-highlight:hover,
 .mobile-short-explanation {
-    background-color: rgba(66, 255, 59, 0.22);
+    background-color: rgba(254, 223, 62, 0.3);
+}
+
+.current-line-highlight pre.code-line-container code {
+    color: #000000 !important;
 }
 
 .cross-fade-leave {
@@ -614,8 +653,24 @@ blockquote.blockquote {
 
 .code-line-container,
 .code-explanation {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    /* or 21px */
+
+    letter-spacing: -0.03em;
+
+    color: #000000;
     flex-shrink: 0;
 }
+
+.code-line-container,
+.code-explanation code {
+    color: #FF3B99;
+}
+
 
 .dynamic-p {
     margin-bottom: 0;

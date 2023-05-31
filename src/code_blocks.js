@@ -1528,7 +1528,9 @@ export class CodeBlockWithActiveLineAndAnnotations extends React.PureComponent {
                         }}
                         className="code-block-with-annotations fix-animation"
                     >
-                        {lines}
+                        <div className="code-block-with-annotations-overlay">
+                            {lines}
+                        </div>
                     </div>
                 </SmoothScrollbar>
                 {this.props.withShortExplanation && (
