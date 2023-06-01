@@ -17,6 +17,7 @@ import { getUxSettings, initUxSettings } from "./util";
 import { globalSettings, win } from "./store";
 import { Player } from "./player";
 import { LESSONS } from "./constants";
+import { Fragment } from "react";
 
 function getWindowDimensions() {
     const width = document.documentElement.clientWidth;
@@ -151,7 +152,9 @@ const Lesson = withRouter(
             const id = this.props.match.params.id;
             const {windowWidth, windowHeight} = this.props;
             console.log('Lesson', id, LESSONS[id]);
-            return <Player {...LESSONS[id]} windowWidth={windowWidth} windowHeight={windowHeight} lessonId={id} />
+            return (
+              <Player {...LESSONS[id]} windowWidth={windowWidth} windowHeight={windowHeight} lessonId={id} />
+            )
         }
     }
 );

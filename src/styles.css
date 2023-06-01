@@ -339,6 +339,96 @@ h1 {
     transition-timing-function: ease;
 }
 
+.chat-overlay:modal {
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 800px;
+    min-width: 800px;
+    height: 80%;
+    overflow: hidden;
+    padding: 8px;
+}
+
+.chat-overlay:modal .modal-span {
+    background: #F4F5F5;
+    border-radius: 6px;
+    height: -webkit-fill-available;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-overlay::backdrop {
+    background: rgb(255 255 255 / 0%);
+    backdrop-filter: blur(2px);
+}
+
+.chat-overlay button,
+.chat-overlay button:hover,
+.chat-overlay button:focus,
+.chat-overlay button:focus-visible {
+    border: 0 solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-body {
+    padding: 10px 0;
+}
+
+.modal-body p {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: -0.03em;
+}
+
+.modal-footer textarea,
+.modal-footer textarea:focus,
+.modal-footer textarea:active,
+.modal-footer textarea:hover,
+.modal-footer textarea:focus-visible {
+    border-radius: 8px;
+    border: 1px solid rgb(229, 229, 229);
+    background: rgb(255, 255, 255);
+    width: calc(100% - 90px);
+    min-height: 27px;
+    max-height: 150px;
+    outline: none;
+    resize: none;
+    padding: 10px 80px 10px 10px;
+    font-family: 'Roboto Flex';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: -0.03em;
+    color: rgb(0 0 0 / 72%);
+}
+
+.modal-footer {
+    margin-top: auto;
+    position: relative;
+}
+
+.modal-footer .chat-message-send {
+    height: 40px;
+    position: absolute;
+    right: 8px;
+    top: 20px;
+    bottom: 0;
+}
+
 .active-box-selection {
     background: #F7EEBE;
     width: 58px !important;
