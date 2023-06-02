@@ -26,15 +26,15 @@ function getWindowDimensions() {
 }
 
 function logViewportStats() {
-    console.log(`DIMENSIONS: window inner: ${window.innerWidth}x${window.innerHeight}`);
-    console.log(
-        `DIMENSIONS: document.documentElement: ${document.documentElement.clientWidth}x${document.documentElement.clientHeight}`
-    );
+    // console.log(`DIMENSIONS: window inner: ${window.innerWidth}x${window.innerHeight}`);
+    // console.log(
+    //     `DIMENSIONS: document.documentElement: ${document.documentElement.clientWidth}x${document.documentElement.clientHeight}`
+    // );
     const vv = window.visualViewport;
-    console.log(`DIMENSIONS: visualViewport: ${vv != null ? vv.width + 'x' + vv.height : vv}`);
+    // console.log(`DIMENSIONS: visualViewport: ${vv != null ? vv.width + 'x' + vv.height : vv}`);
 
     const {width, height} = getWindowDimensions();
-    console.log(`DIMENSIONS: used: ${width}x${height}`);
+    // console.log(`DIMENSIONS: used: ${width}x${height}`);
     // TODO FIXME: this is for debugging only
     /*const url = `/viewports?wi=${window.innerWidth}x${window.innerHeight}&de=${document.documentElement.clientWidth}x${document.documentElement.clientHeight}&vv=${vv.width}x${vv.height}`;
     const Http = new XMLHttpRequest();
@@ -61,13 +61,13 @@ export class App extends React.Component {
         const windowWidth = dimensions.width;
         const windowHeight = dimensions.height;
         if (this.state.windowWidth !== windowWidth || this.state.windowHeight !== windowHeight) {
-            console.log('Processing window size change', windowWidth, windowHeight);
+            // console.log('Processing window size change', windowWidth, windowHeight);
             if (
                 this.state.windowWidth != windowWidth ||
                 this.state.windowHeight > windowHeight ||
                 windowHeight - this.state.windowHeight > SIGNIFICANT_HEIGHT_CHANGE
             ) {
-                console.log('App size changed from', this.state);
+                // console.log('App size changed from', this.state);
                 this.setState({
                     windowWidth,
                     windowHeight,
@@ -83,7 +83,7 @@ export class App extends React.Component {
         const dimensions = getWindowDimensions();
         const windowWidth = dimensions.width;
         const windowHeight = dimensions.height;
-        console.log('componentDidMount() window geometry', windowWidth, windowHeight);
+        // console.log('componentDidMount() window geometry', windowWidth, windowHeight);
 
         window.addEventListener('resize', _.throttle(this.handleWindowSizeChange, 500));
         globalSettings.maxCodePlaySpeed = getUxSettings().MAX_CODE_PLAY_SPEED;
@@ -101,9 +101,9 @@ export class App extends React.Component {
     }
 
     render() {
-        console.log('App.render()');
+        // console.log('App.render()');
         const {windowWidth, windowHeight} = this.state.mounted ? this.state : {};
-        console.log('Window sizes', windowWidth, windowHeight);
+        // console.log('Window sizes', windowWidth, windowHeight);
 
         if (!this.state.mounted) {
             return <div>Loading...</div>;
@@ -148,10 +148,10 @@ class LessonPane extends React.Component {
 const Lesson = withRouter(
     class extends React.Component {
         render() {
-            console.log('withRouter', this.props);
+            // console.log('withRouter', this.props);
             const id = this.props.match.params.id;
             const {windowWidth, windowHeight} = this.props;
-            console.log('Lesson', id, LESSONS[id]);
+            // console.log('Lesson', id, LESSONS[id]);
             return (
               <Player {...LESSONS[id]} windowWidth={windowWidth} windowHeight={windowHeight} lessonId={id} />
             )

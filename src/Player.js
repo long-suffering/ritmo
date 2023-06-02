@@ -1,7 +1,8 @@
 import * as React from "react";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import classnames from "classnames";
 import { BigNumber } from "bignumber.js";
+import axios from "axios";
 
 import "./player.css";
 
@@ -44,7 +45,7 @@ class PlayerInput extends ParsableInputBase {
   }
 
   render() {
-    console.log("Input state", this.state);
+    // console.log("Input state", this.state);
 
     let errorMsg;
     if (this.state.error) {
@@ -56,21 +57,21 @@ class PlayerInput extends ParsableInputBase {
       style.width = 50;
     }
     return (<div className="player-input-wrapper">
-        {this.props.label &&
-          <span className="player-input-label">{this.props.label}</span>}
-        <input
-          pattern={this.getPattern()}
-          type={this.props.type === "int" ? "number" : undefined}
-          style={style}
-          className={classnames("player-input", errorMsg ? "player-input-error" : null)}
-          onChange={this.handleChange}
-          value={this.state.valueRaw}
-        />
-        {errorMsg && (<span className="player-input-comment"
-                            style={{ color: this.ERROR_COLOR }}>
+      {this.props.label &&
+        <span className="player-input-label">{this.props.label}</span>}
+      <input
+        pattern={this.getPattern()}
+        type={this.props.type === "int" ? "number" : undefined}
+        style={style}
+        className={classnames("player-input", errorMsg ? "player-input-error" : null)}
+        onChange={this.handleChange}
+        value={this.state.valueRaw}
+      />
+      {errorMsg && (<span className="player-input-comment"
+                          style={{ color: this.ERROR_COLOR }}>
                         {errorMsg}
                     </span>)}
-      </div>);
+    </div>);
   }
 }
 
@@ -89,7 +90,7 @@ function dumpValue(val, type) {
 }
 
 function parseValue(s, type) {
-  console.log("parseValue", s, type);
+  // console.log("parseValue", s, type);
   if (type === "array_int") {
     return parsePyList(s, false, 1, intValidator);
   } else if (type === "array") {
@@ -101,9 +102,79 @@ function parseValue(s, type) {
   }
 }
 
+const PreChatModal = ({ text, isAi }) => {
+  if (!isAi) {
+    const delay = 20;
+    const elem = useRef(null);
+
+    useEffect(() => {
+      if (!elem) return;
+
+      const print_text = function(text, elem, delay) {
+        if (text.length > 0) {
+          elem.innerHTML += text[0];
+          setTimeout(
+            function() {
+              print_text(text.slice(1), elem, delay);
+            }, delay
+          );
+        }
+      };
+
+      print_text(text, elem.current, delay)
+    }, [elem])
+
+    return <pre ref={elem} />
+  }
+
+  return (
+    <pre children={text}/>
+  )
+}
 
 function ChatModal() {
+  const urlApi = "https://api.openai.com/v1/chat/completions"
   const dialogRef = useRef(null);
+  const [chatMessage, setChatMessage] = useState([]);
+  const [textarea, setTextarea] = useState("")
+  const [isPendingChat, setIsPendingChat] = useState(false)
+
+  const onSendMessage = useCallback((event) => {
+    event.preventDefault()
+
+    if (textarea.length > 10) {
+
+      setChatMessage(prevState => {
+        return [...prevState, textarea]
+      })
+
+      setIsPendingChat(true)
+
+      setTextarea('')
+
+      axios({
+        url: urlApi,
+        method: "post",
+        headers: { Authorization: `Bearer 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` },
+        data: {
+          "model": "gpt-3.5-turbo",
+          "messages": [{
+            "role": "user",
+            "content": textarea
+          }]
+        }
+      }).then(function (response) {
+        const dataResponse = response.data.choices[0].message.content;
+
+        setIsPendingChat(false)
+        setChatMessage(prevState => {
+          return [...prevState, dataResponse]
+        })
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, [setChatMessage, textarea])
 
   const onToggleModal = useCallback(() => {
     if (!dialogRef.current) return;
@@ -117,30 +188,31 @@ function ChatModal() {
     dialogRef.current.close();
   }, [dialogRef]);
 
-  return (<Fragment>
+  return (
+    <Fragment>
       <div className="player-button player-next" onClick={onToggleModal}
            children={<img src={infoIcon} />} />
 
       <dialog ref={dialogRef} className="chat-overlay">
-        <div className="modal-span">
-          <div className="modal-header"
-               children={<button onClick={onToggleModal}
-                                 children={<img src={closeIcon}
-                                                alt="X" />} />} />
+        <form onSubmit={onSendMessage} className="modal-span">
+          <div className="modal-header">
+            <button onClick={onToggleModal}
+                    children={<img src={closeIcon} alt="X" />} />
+          </div>
           <div className="modal-body">
-            <p>Проект по изучению алгоритмов в программировании должен
-              стремиться решить эти задачи, чтобы предоставить пользователям
-              полезный и эффективный инструмент для изучения и практического
-              применения алгоритмов.</p>
+            {chatMessage.map(( data, index) => (<PreChatModal text={data} key={data} isAi={!(index % 2)} />))}
+            {isPendingChat && "Загрузка..."}
           </div>
           <div className="modal-footer">
-            <textarea placeholder="Введите ваше сообщение" />
-            <button children={<img src={playArrow} />}
-                    className="chat-message-send" />
+            <textarea placeholder="Введите ваше сообщение" value={textarea} onChange={(event) => setTextarea(event.target.value)} />
+            <button type="submit" className="chat-message-send" disabled={!(textarea.length > 10)}>
+              <img src={playArrow} />
+            </button>
           </div>
-        </div>
+        </form>
       </dialog>
-    </Fragment>);
+    </Fragment>
+  );
 }
 
 export class Player extends React.Component {
@@ -180,7 +252,7 @@ export class Player extends React.Component {
       programInputs.push(parseValue(rawValue, input.type));
       originalRawInputs.push(rawValue);
       onInputChangeHandlers.push((value, valueRaw) => {
-        console.log("equal compare", dumpValue(programInputs[i], input.type), dumpValue(value, input.type));
+        // console.log("equal compare", dumpValue(programInputs[i], input.type), dumpValue(value, input.type));
 
         if (dumpValue(programInputs[i], input.type) !== dumpValue(value, input.type)) {
           const programInputs = [...this.state.programInputs];
@@ -193,15 +265,15 @@ export class Player extends React.Component {
 
           localStorage.setItem(this.INPUTS_LS_PREFIX + input.id, valueRaw);
 
-          console.log("onInputChangeHandlers", value, programInputs, breakpoints);
+          // console.log("onInputChangeHandlers", value, programInputs, breakpoints);
         }
       });
     }
     this.onInputChangeHandlers = onInputChangeHandlers;
 
-    console.log("Inputs", programInputs);
+    // console.log("Inputs", programInputs);
     const breakpoints = this.props.getBreakpoints(...programInputs);
-    console.log("breakpoints", breakpoints);
+    // console.log("breakpoints", breakpoints);
 
     const sliderTime = Math.min(+timeStr || 0, breakpoints.length - 1);
     this.state = {
@@ -217,7 +289,7 @@ export class Player extends React.Component {
       originalRawInputs
     };
 
-    console.log("Player constructor state", this.state);
+    // console.log("Player constructor state", this.state);
 
     this.componentRef = React.createRef();
   }
@@ -257,7 +329,7 @@ export class Player extends React.Component {
   };
 
   handleTimeChange = (sliderTime, autoPlaying = false, onStateChange) => {
-    console.log("handleTimeChange", sliderTime, autoPlaying);
+    // console.log("handleTimeChange", sliderTime, autoPlaying);
     const time = Math.round(sliderTime);
     this.setState(() => ({ time, sliderTime, autoPlaying }), onStateChange);
     setTimeout(_.throttle(() => this.saveSliderTimeToLS(sliderTime), 500), 0);
@@ -281,7 +353,7 @@ export class Player extends React.Component {
   };
 
   singleAutoPlayIteration = () => {
-    console.log("autoplay iteration", this.state);
+    // console.log("autoplay iteration", this.state);
     if (!this.state.autoPlaying) {
       return;
     }
@@ -291,7 +363,7 @@ export class Player extends React.Component {
   autoPlay = () => {
     if (this.state.sliderTime < this.maxTime()) {
       const delta = (1.0 / this.SLIDER_AUTOPLAY_BASE_MS) * (performance.now() - (this.lastTimeChange ? this.lastTimeChange : performance.now()));
-      console.log("autoPlay", this.state.time, delta);
+      // console.log("autoPlay", this.state.time, delta);
       let newSliderTime = Math.min(this.maxTime(), this.state.sliderTime + delta);
       if (newSliderTime < this.maxTime()) {
         if (this.timeoutId) {
@@ -312,7 +384,7 @@ export class Player extends React.Component {
   };
 
   forceAutoPlay = () => {
-    console.log("autoplay");
+    // console.log("autoplay");
     if (this.state.time < this.maxTime()) {
       this.autoPlay();
     } else {
@@ -321,7 +393,7 @@ export class Player extends React.Component {
   };
 
   toggleAutoPlay = () => {
-    console.log("toggleAutoPlay", this.state.autoPlaying);
+    // console.log("toggleAutoPlay", this.state.autoPlaying);
     if (!this.state.autoPlaying) {
       this.forceAutoPlay();
     } else {
@@ -370,7 +442,7 @@ export class Player extends React.Component {
   };
 
   handleKeyboard = (event) => {
-    console.log("keyboard", event);
+    // console.log("keyboard", event);
     if (event.target.nodeName === "INPUT") {
       return; // Don't mess with inputs
     }
@@ -406,7 +478,7 @@ export class Player extends React.Component {
   };
 
   render() {
-    console.log("Player", this.props, this.state);
+    // console.log("Player", this.props, this.state);
     if (this.state.navigatingHome) {
       return <Redirect push to="/" />;
     }
@@ -415,7 +487,7 @@ export class Player extends React.Component {
 
     const StateVisualization = this.props.stateVisualization;
     const { windowHeight, windowWidth } = this.props;
-    console.log("Player window size", windowHeight, windowWidth);
+    // console.log("Player window size", windowHeight, windowWidth);
     const totalWidth = Math.min(this.MAX_WIDTH, windowWidth);
 
     const time = this.state.time;
@@ -435,7 +507,7 @@ export class Player extends React.Component {
     if (windowHeight) {
       const expectedVisHeight = 1.1 * StateVisualization.getExpectedHeight(totalWidth, windowHeight);
 
-      console.log("Expected vis height", expectedVisHeight);
+      // console.log("Expected vis height", expectedVisHeight);
       codeVisWidth = totalWidth - approximateHorizontalPaddings;
 
       if (this.isMobile()) {
@@ -467,141 +539,141 @@ export class Player extends React.Component {
       mobileSliderStyle = { paddingBottom: 15, paddingTop: 20 };
     }
 
-    console.log("mobile header title", mobileHeaderTitle);
+    // console.log("mobile header title", mobileHeaderTitle);
 
     const biggerFont = !isDefinedSmallBoxScreen(windowWidth, windowHeight) || isMobile;
     // const inputs = this.props.inputs;
     const inputs = this.props.inputs;
 
     return (<div className="fluid-body">
-        <div className="player">
-          <div
-            className={classnames("player-header", !isMobile && "player-header-desktop")}
-            style={playerHeaderStyle}
-          >
-            <div style={{ display: "flex", alignItems: "center" }}>
-              {(!this.state.showingTheory || !isMobile) && (
-                <Link to="/" className="player-title"
-                      children={<ArrowLeft />} />)}
-              {!isMobile && (<div className="player-lesson-name">
-                  {"\u00A0"}
-                  {this.props.playerHeaderTitle}
-                </div>)}
-            </div>
-            {(!this.state.showingTheory || !isMobile) && (<div
-                className={classnames("player-buttons", isMobile ? "player-buttons-mobile" : "")}>
-                <div className="player-button player-prev"
-                     onClick={this.prevStep}>
-                  <img src={leftArrow} />
-                </div>
-                <div className="player-counters">
-                  <span children={`Шаг ${time + 1} из ${maxTime}`} />
-                </div>
-                <div className="player-button player-next"
-                     onClick={this.nextStep}>
-                  <img src={rightArrow} />
-                </div>
-                <div className="player-button player-play-button"
-                     onClick={this.toggleAutoPlay}>
-                  <img src={this.state.autoPlaying ? pauseButton : playArrow} />
-                </div>
-                <ChatModal />
-              </div>)}
-
-            {/*{this.props.theory && (*/}
-            {/*    <div*/}
-            {/*        className={classnames(*/}
-            {/*            'player-theory-button',*/}
-            {/*            this.state.showingTheory && 'player-button-active'*/}
-            {/*        )}*/}
-            {/*        onClick={this.toggleTheory}*/}
-            {/*    >*/}
-            {/*        Теория*/}
-            {/*    </div>*/}
-            {/*)}*/}
-          </div>
-          {!isMobile && inputs && inputs.length && (
-            <div className="player-inputs-outer">
-              <div className="player-inputs-inner">
-                {inputs.map((input, idx) => {
-                  return (<PlayerInput
-                      value={this.state.programInputs[idx]}
-                      valueRaw={this.state.originalRawInputs[idx]}
-                      key={input.id}
-                      label={input.label}
-                      type={input.type}
-                      onChange={this.onInputChangeHandlers[idx]}
-                      dumpValue={(val) => dumpValue(val, input.type)}
-                      parseValue={(val) => parseValue(val, input.type)}
-                    />);
-                })}
-              </div>
+      <div className="player">
+        <div
+          className={classnames("player-header", !isMobile && "player-header-desktop")}
+          style={playerHeaderStyle}
+        >
+          <div style={{ display: "flex", alignItems: "center" }}>
+            {(!this.state.showingTheory || !isMobile) && (
+              <Link to="/" className="player-title"
+                    children={<ArrowLeft />} />)}
+            {!isMobile && (<div className="player-lesson-name">
+              {"\u00A0"}
+              {this.props.playerHeaderTitle}
             </div>)}
-          <div className="player-main">
-            <div className="player-code-and-visualisation"
-                 style={{ width: codeVisWidth }}>
-              <div className="player-slider-wrapper">
-                <Slider
-                  // marks={marks}
-                  onChange={this.handleSliderValueChange}
-                  min={0}
-                  max={this.maxTime() * this.SLIDER_MULTIPLIER}
-                  value={this.state.sliderTime * this.SLIDER_MULTIPLIER}
-                  style={mobileSliderStyle}
-                  dotStyle={{
-                    top: 0,
-                    height: 3,
-                    width: 3,
-                    borderRadius: 0,
-                    backgroundColor: "white",
-                    border: "none"
-                  }}
-                  handleStyle={{
-                    height: 12,
-                    width: 12,
-                    marginTop: -4.5,
-                    backgroundColor: "rgb(255 0 0)",
-                    border: "none"
-                  }}
-                  railStyle={{
-                    height: 2, cursor: "pointer", backgroundColor: "#ad9d95"
-                  }}
-                  trackStyle={{
-                    height: 2,
-                    cursor: "pointer",
-                    backgroundColor: "rgb(255 0 0)"
-                  }}
-                  className={classnames(isMobile && "slider-mobile-extra")}
-                />
-              </div>
-              <CodeBlockWithActiveLineAndAnnotations
-                height={codeHeight}
-                time={time}
-                code={this.props.code}
-                overflow={false}
-                fontSize={15}
-                lineVerticalPadding={2}
-                breakpoints={breakpoints}
-                formatBpDesc={this.props.formatBpDesc}
-                withShortExplanation={isMobile}
-                mobileHeaderTitle={mobileHeaderTitle}
+          </div>
+          {(!this.state.showingTheory || !isMobile) && (<div
+            className={classnames("player-buttons", isMobile ? "player-buttons-mobile" : "")}>
+            <div className="player-button player-prev"
+                 onClick={this.prevStep}>
+              <img src={leftArrow} />
+            </div>
+            <div className="player-counters">
+              <span children={`Шаг ${time + 1} из ${maxTime}`} />
+            </div>
+            <div className="player-button player-next"
+                 onClick={this.nextStep}>
+              <img src={rightArrow} />
+            </div>
+            <div className="player-button player-play-button"
+                 onClick={this.toggleAutoPlay}>
+              <img src={this.state.autoPlaying ? pauseButton : playArrow} />
+            </div>
+            <ChatModal />
+          </div>)}
+
+          {/*{this.props.theory && (*/}
+          {/*    <div*/}
+          {/*        className={classnames(*/}
+          {/*            'player-theory-button',*/}
+          {/*            this.state.showingTheory && 'player-button-active'*/}
+          {/*        )}*/}
+          {/*        onClick={this.toggleTheory}*/}
+          {/*    >*/}
+          {/*        Теория*/}
+          {/*    </div>*/}
+          {/*)}*/}
+        </div>
+        {!isMobile && inputs && inputs.length && (
+          <div className="player-inputs-outer">
+            <div className="player-inputs-inner">
+              {inputs.map((input, idx) => {
+                return (<PlayerInput
+                  value={this.state.programInputs[idx]}
+                  valueRaw={this.state.originalRawInputs[idx]}
+                  key={input.id}
+                  label={input.label}
+                  type={input.type}
+                  onChange={this.onInputChangeHandlers[idx]}
+                  dumpValue={(val) => dumpValue(val, input.type)}
+                  parseValue={(val) => parseValue(val, input.type)}
+                />);
+              })}
+            </div>
+          </div>)}
+        <div className="player-main">
+          <div className="player-code-and-visualisation"
+               style={{ width: codeVisWidth }}>
+            <div className="player-slider-wrapper">
+              <Slider
+                // marks={marks}
+                onChange={this.handleSliderValueChange}
+                min={0}
+                max={this.maxTime() * this.SLIDER_MULTIPLIER}
+                value={this.state.sliderTime * this.SLIDER_MULTIPLIER}
+                style={mobileSliderStyle}
+                dotStyle={{
+                  top: 0,
+                  height: 3,
+                  width: 3,
+                  borderRadius: 0,
+                  backgroundColor: "white",
+                  border: "none"
+                }}
+                handleStyle={{
+                  height: 12,
+                  width: 12,
+                  marginTop: -4.5,
+                  backgroundColor: "rgb(255 0 0)",
+                  border: "none"
+                }}
+                railStyle={{
+                  height: 2, cursor: "pointer", backgroundColor: "#ad9d95"
+                }}
+                trackStyle={{
+                  height: 2,
+                  cursor: "pointer",
+                  backgroundColor: "rgb(255 0 0)"
+                }}
+                className={classnames(isMobile && "slider-mobile-extra")}
               />
-              <div className="player-state-vis-wrapper"
-                   style={mobileVisWrapperStyle}>
-                <div className="player-state-vis-wrapper-overlay">
-                  <StateVisualization
-                    bp={bp}
-                    epoch={this.state.breakpointsUpdatedCounter}
-                    innerRef={this.componentRef}
-                    windowWidth={windowWidth}
-                    windowHeight={windowHeight}
-                    overflow={false}
-                  />
-                </div>
+            </div>
+            <CodeBlockWithActiveLineAndAnnotations
+              height={codeHeight}
+              time={time}
+              code={this.props.code}
+              overflow={false}
+              fontSize={15}
+              lineVerticalPadding={2}
+              breakpoints={breakpoints}
+              formatBpDesc={this.props.formatBpDesc}
+              withShortExplanation={isMobile}
+              mobileHeaderTitle={mobileHeaderTitle}
+            />
+            <div className="player-state-vis-wrapper"
+                 style={mobileVisWrapperStyle}>
+              <div className="player-state-vis-wrapper-overlay">
+                <StateVisualization
+                  bp={bp}
+                  epoch={this.state.breakpointsUpdatedCounter}
+                  innerRef={this.componentRef}
+                  windowWidth={windowWidth}
+                  windowHeight={windowHeight}
+                  overflow={false}
+                />
               </div>
             </div>
           </div>
         </div>
-      </div>);
+      </div>
+    </div>);
   }
 }

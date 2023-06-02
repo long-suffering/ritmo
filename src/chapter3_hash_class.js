@@ -280,7 +280,7 @@ function DynamicPartSetItemRecycling({hasDummy, outcome, otherOutcomes, handleUp
             Try it
         </button>
     );
-    console.log('DynamicPartResize', hasDummy, outcome, otherOutcomes);
+    // console.log('DynamicPartResize', hasDummy, outcome, otherOutcomes);
     const singleOtherOutcome = Object.keys(otherOutcomes)[0];
     const inserted = otherOutcomes[singleOtherOutcome].inserted;
     const removed = otherOutcomes[singleOtherOutcome].removed;
@@ -558,7 +558,7 @@ export class Chapter3_HashClass extends ChapterComponent {
             newState.keyToDelIdHack = this.state.keyToDelIdHack + 1;
         }
 
-        console.log('handleUpdateRemovedAndInsert', newState);
+        // console.log('handleUpdateRemovedAndInsert', newState);
         this.setState(newState);
     };
 
@@ -580,7 +580,7 @@ export class Chapter3_HashClass extends ChapterComponent {
             this.state.valueToSetRecycling
         );
         pySelf = recyclingRes.pySelf;
-        console.log('Chapter3 render timing', performance.now() - t1);
+        // console.log('Chapter3 render timing', performance.now() - t1);
 
         return (
             <div className="chapter chapter3">

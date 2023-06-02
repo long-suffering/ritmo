@@ -1004,7 +1004,7 @@ class BaseBoxesComponent extends React.PureComponent {
             }
             window.bbTiming += totalTiming;
         }
-        console.log('BaseBoxesComponent.getDerivedStateFromProps timing', totalTiming);
+        // console.log('BaseBoxesComponent.getDerivedStateFromProps timing', totalTiming);
         return newState;
     }
 
@@ -1483,7 +1483,7 @@ export class CodeBlockWithActiveLineAndAnnotations extends React.PureComponent {
             if (bp.recursionLevel != null && bp.recursionLevel !== activeBp.recursionLevel) {
                 continue;
             }
-            console.log('BP', time, bp);
+            // console.log('BP', time, bp);
 
             if (bp.point in visibleBreakpoints) {
                 let level = pointToLevel[bp.point];

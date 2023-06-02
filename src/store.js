@@ -6,12 +6,12 @@ export let globalSettings = observable({
 });
 
 globalSettings.setCodePlaySpeed = action(function setCodePlaySpeed(speed) {
-    console.log('action setCodePlaySpeed', speed);
+    // console.log('action setCodePlaySpeed', speed);
     globalSettings.codePlaySpeed = speed;
 });
 
 globalSettings.setMaxCodePlaySpeed = action(function setCodePlaySpeed(maxSpeed) {
-    console.log('action setMaxCodePlaySpeed', maxSpeed);
+    // console.log('action setMaxCodePlaySpeed', maxSpeed);
     globalSettings.maxCodePlaySpeed = maxSpeed;
 });
 
@@ -34,7 +34,7 @@ win.setScrollY = action(function setScrollY(scrollY) {
 });
 
 win.setWH = action(function setWH(w, h) {
-    console.log('setWH', w, h);
+    // console.log('setWH', w, h);
     win.width = w;
     win.height = h;
 });

@@ -371,12 +371,12 @@ let insidePythonDictUxSettings;
 
 export function initUxSettings() {
     const browser = bowser.getParser(window.navigator.userAgent).parse().parsedResult;
-    console.log('Detected browser', browser);
+    // console.log('Detected browser', browser);
 
     const engine = browser.engine.name;
     const osName = browser.os.name;
     const platformType = browser.platform.type;
-    console.log('Detected engine', engine, 'on', osName);
+    // console.log('Detected engine', engine, 'on', osName);
     let settings = {...defaultUxSettings};
 
     // 'Throttling' transitions for selection is important because they can be buggy as heck
@@ -449,7 +449,7 @@ export function initUxSettings() {
 
     insidePythonDictUxSettings = settings;
     window.insidePythonDictBrowser = browser;
-    console.log('UX settings', getUxSettings());
+    // console.log('UX settings', getUxSettings());
 }
 
 export function getUxSettings() {

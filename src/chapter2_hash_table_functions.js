@@ -639,7 +639,7 @@ class HashResizeInPlaceAnimation extends React.PureComponent {
     }
 
     runAnimation = () => {
-        console.log('runAnimation');
+        // console.log('runAnimation');
         this.setState((state) => ({
             isStart: !state.isStart,
         }));
@@ -724,7 +724,7 @@ export class Chapter2_HashTableFunctions extends ChapterComponent {
 
         const resizeRes = this.runResize(hashCodes, keys);
         /*const insertRes = this.runInsert(hashCodes, keys, this.state.objToInsert);*/
-        console.log('Chapter2 render timing', performance.now() - t1);
+        // console.log('Chapter2 render timing', performance.now() - t1);
 
         return (
             <div className="chapter chapter2">

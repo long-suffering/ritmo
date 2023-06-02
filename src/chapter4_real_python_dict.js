@@ -467,7 +467,7 @@ export class Chapter4_RealPythonDict extends ChapterComponent {
             this.state.keyForProbingVis.lt(0) &&
             this.state.keyForProbingVis.gt(-100000000);
 
-        console.log('Chapter4 render timing', performance.now() - t1);
+        // console.log('Chapter4 render timing', performance.now() - t1);
 
         return (
             <div className="chapter chapter4">

@@ -165,7 +165,7 @@ export class PyObjParser {
         const allowedSeparators = ',]';
         const c = this.current();
 
-        console.log('parseList', c, this.s);
+        // console.log('parseList', c, this.s);
         this.maybeConsumeWS('[');
         let res = [];
         this.skipWhitespace();
