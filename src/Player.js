@@ -166,7 +166,7 @@ function ChatModal() {
       axios({
         url: urlApi,
         method: "post",
-        headers: { Authorization: `Bearer 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` },
+        headers: { Authorization: `Bearer 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` },
         data: {
           "model": "gpt-3.5-turbo",
           "messages": [{
@@ -568,7 +568,7 @@ export class Player extends React.Component {
           <div style={{ display: "flex", alignItems: "center" }}>
             {(!this.state.showingTheory || !isMobile) && (
               <Link to="/" className="player-title"
-                    children={<ArrowLeft />} />)}
+                    children={<img src={leftArrow} />} />)}
             {!isMobile && (<div className="player-lesson-name">
               {"\u00A0"}
               {this.props.playerHeaderTitle}

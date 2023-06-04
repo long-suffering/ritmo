@@ -1,8 +1,9 @@
 import _ from "lodash";
 import "./mainpage.css";
 import "./styles.css";
-import classnames from "classnames";
-import BigLogo from "./images/big-logo.svg";
+import bgLinkSterjest from "./images/sort_img/bg-link-sterjest.png";
+import bgCode1 from "./images/bg-code1.png";
+import bgCode2 from "./images/bg-code2.png";
 
 import * as React from "react";
 import ReactDOM from "react-dom";
@@ -17,7 +18,6 @@ import { getUxSettings, initUxSettings } from "./util";
 import { globalSettings, win } from "./store";
 import { Player } from "./player";
 import { LESSONS } from "./constants";
-import { Fragment } from "react";
 
 function getWindowDimensions() {
     const width = document.documentElement.clientWidth;
@@ -140,7 +140,11 @@ class LessonPane extends React.Component {
         }
 
         return (
-          <Link to={`/lesson/${id}`} className={classnames('pane', lesson.mainPagePaneClassName)} children={<h2>{lesson.mainPagePaneHeaderTitle}</h2>} />
+          <Link to={`/lesson/${id}`} className="card" style={{ backgroundColor: lesson.bg }}>
+              <div className="title">{lesson.mainPagePaneHeaderTitle}</div>
+              <div className="description">{lesson.description}</div>
+              <img src={lesson.img} style={{objectPosition: lesson.objectFit || ""}} />
+          </Link>
         );
     }
 }
@@ -165,56 +169,125 @@ export class MainPage extends React.Component {
             <div className="fluid-body">
                 <div className="frontpage">
                     <div className="header">
-                        <img src={BigLogo} alt="logo" />
+                        <h1>Изучай сложные алгоритмы просто и понятно</h1>
+                        <p>Интерактивный учебник <br/> с искусственным интеллектом</p>
                     </div>
 
-                    <div className="section">
-                        <h1>Сортировки</h1>
-                        <div className="lesson-pane-stack">
-                            <LessonPane id="bubble_sort" />
-                            <div className="placeholder" />
+                    <div className="cards">
+                        <LessonPane id="bubble_sort" />
+                        <LessonPane id="quick_sort" />
+                        <LessonPane id="simplified_hash_search" />
+                    </div>
+
+                    <div className="call-to-action">
+                        <p>Что это</p>
+                        <h1>Визуализация алгоритмов по шагам с готовым кодом и AI коучем</h1>
+                    </div>
+
+                    <div className="link-sterjest">
+                        <img src={bgLinkSterjest} alt="" />
+                        <Link
+                          to="/lesson/bubble_sort"
+                          className="link-sterjest-link"
+                          children="Начать"
+                        />
+                    </div>
+
+                    <div className="call-to-action">
+                        <p>Как работает</p>
+                        <h1>Всё что нужно <br/> для обучения алгоритмам – <br/> в одном месте</h1>
+                    </div>
+
+                    <div className="parent">
+                        <div className="div1 parent-card">
+                            <img src={bgCode1} />
                         </div>
-                        <div className="lesson-pane-stack">
-                            <div className="placeholder" />
-                            <LessonPane id="quick_sort" />
+                        <div className="div2 parent-card" style={{ backgroundColor: "#F9FFB2" }}>
+                            <div className="title">Псевдо-код</div>
+                            <div className="description">Каждый алгоритм при демонстрации работы подсвечивает конкретный участок, чтобы быстро понимать логику</div>
+                        </div>
+                        <div className="div3 parent-card" style={{ backgroundColor: "#D4B3FF" }}>
+                            <div className="title">Код</div>
+                            <div className="description">Готовый и правильно написанный код можно скопировать, чтобы запустить и проверить работу</div>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div className="parent2">
+                        <div className="div1 parent-card" style={{ backgroundColor: "#B3E3FF" }}>
+                            <div className="title">Решение</div>
+                            <div className="description">Понятная и простая визуализация алгоритма для запоминания и лучшего понимания логики работы</div>
+                        </div>
+                        <div className="div2 parent-card" style={{ backgroundColor: "#FFC5B3" }}>
+                            <div className="title">AI-помощник</div>
+                            <div className="description">Чат-бот всегда подскажет дополнительную информацию по теме и даже сгенерирует примеры с готовым кодом</div>
+                        </div>
+                        <div className="div3 parent-card">
+                            <img src={bgCode2} />
                         </div>
                     </div>
 
-                    <div className="section">
-                        <h1>Простейшие хеш-таблицы</h1>
-                        <div className="lesson-pane-stack">
-                            <LessonPane id="simplified_hash_collisions" />
-                            <div className="placeholder" />
-                        </div>
-                        <div className="lesson-pane-stack">
-                            <div className="placeholder" />
-                            <LessonPane id="simplified_hash_create" />
-                        </div>
-                        <div className="lesson-pane-stack">
-                            <LessonPane id="simplified_hash_search" />
-                            <div className="placeholder" />
-                        </div>
+                    <div className="call-to-action2">
+                        <h1>Проект развивается <br/> как open-source решение и вы можете ему помочь!</h1>
+                        <p>Присоединяйтесь, как разработчик к репозиторию на GitHub и вносите свой вклад в развитие проекта</p>
                     </div>
 
-                    <div className="section">
-                        <h1>Хеш-таблицы с открытой адресацией</h1>
-                        <div className="lesson-pane-stack">
-                            <LessonPane id="hash_create" />
-                            <div className="placeholder" />
-                        </div>
-                        <div className="lesson-pane-stack">
-                            <div className="placeholder" />
-                            <LessonPane id="hash_search" />
-                        </div>
-                        <div className="lesson-pane-stack">
-                            <LessonPane id="hash_remove" />
-                            <div className="placeholder" />
-                        </div>
-                        <div className="lesson-pane-stack">
-                            <div className="placeholder" />
-                            <LessonPane id="hash_resize" />
-                        </div>
-                    </div>
+                    <a
+                      href="https://github.com/long-suffering/ritmo"
+                      className="link-sterjest-link"
+                      children="GitHub"
+                      style={{ marginBottom: '400px' }}
+                    />
+
+                    <div className="footer" children="Горыныч & Ко"/>
+
+                    {/*<div className="section">*/}
+                    {/*    <h1>Сортировки</h1>*/}
+                    {/*    <div className="lesson-pane-stack">*/}
+                    {/*        <LessonPane id="bubble_sort" />*/}
+                    {/*        <div className="placeholder" />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="lesson-pane-stack">*/}
+                    {/*        <div className="placeholder" />*/}
+                    {/*        <LessonPane id="quick_sort" />*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
+                    {/*<div className="section">*/}
+                    {/*    <h1>Простейшие хеш-таблицы</h1>*/}
+                    {/*    <div className="lesson-pane-stack">*/}
+                    {/*        <LessonPane id="simplified_hash_collisions" />*/}
+                    {/*        <div className="placeholder" />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="lesson-pane-stack">*/}
+                    {/*        <div className="placeholder" />*/}
+                    {/*        <LessonPane id="simplified_hash_create" />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="lesson-pane-stack">*/}
+                    {/*        <LessonPane id="simplified_hash_search" />*/}
+                    {/*        <div className="placeholder" />*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
+                    {/*<div className="section">*/}
+                    {/*    <h1>Хеш-таблицы с открытой адресацией</h1>*/}
+                    {/*    <div className="lesson-pane-stack">*/}
+                    {/*        <LessonPane id="hash_create" />*/}
+                    {/*        <div className="placeholder" />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="lesson-pane-stack">*/}
+                    {/*        <div className="placeholder" />*/}
+                    {/*        <LessonPane id="hash_search" />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="lesson-pane-stack">*/}
+                    {/*        <LessonPane id="hash_remove" />*/}
+                    {/*        <div className="placeholder" />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="lesson-pane-stack">*/}
+                    {/*        <div className="placeholder" />*/}
+                    {/*        <LessonPane id="hash_resize" />*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         );

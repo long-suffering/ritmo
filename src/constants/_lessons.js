@@ -40,6 +40,9 @@ import {
 } from "../chapter2_hash_table_functions";
 import * as React from "react";
 import { HashBoxesComponent, TetrisFactory } from "../code_blocks";
+import bubleSort from "../images/sort_img/buble_sort.png";
+import colizion from "../images/sort_img/colizion_img.png";
+import search from "../images/sort_img/search.png";
 
 const QuickSortVisualisation = TetrisFactory([
   [HashBoxesComponent, [{labels: [null]}, 'array', 'left', 'right']],
@@ -95,10 +98,10 @@ function runQuickSort(a) {
 
 export const LESSONS = {
   bubble_sort: {
-    mainPagePaneHeaderTitle: 'Сортировка пузырьком',
+    mainPagePaneHeaderTitle: 'Пузырьком',
     mainPagePaneClassName: 'bubble-sort',
     playerHeaderTitle: 'Сортировка пузырьком',
-    mobilePlayerHeaderTitle: 'Сортировка пузырьком',
+    mobilePlayerHeaderTitle: 'Пузырьком',
     getBreakpoints: (numbers) => {
       return runBubbleSort(
         numbers.map((n) => n.toNumber()),
@@ -110,15 +113,19 @@ export const LESSONS = {
     stateVisualization: BubbleSortVisualisation,
     code: BUBBLE_SORT_CODE,
     resetToZero: true,
+    description: "Простой алгоритм сравнения и перестановки элементов до достижения правильного порядка.",
+    img: bubleSort,
+    bg: "#D4B2FF",
+    objectFit: "0 -22px",
 
     theory: <BubbleSortTheory />,
   },
 
   quick_sort: {
-    mainPagePaneHeaderTitle: 'Быстрая',
+    mainPagePaneHeaderTitle: 'Быстрая сортировка',
     mainPagePaneClassName: 'quick-sort',
     playerHeaderTitle: 'быструю сортировку',
-    mobilePlayerHeaderTitle: 'Быстрая сортировка',
+    mobilePlayerHeaderTitle: 'Быстрая',
     getBreakpoints: (numbers) => {
       return runQuickSort(numbers.map((n) => n.toNumber())).bp;
     },
@@ -127,6 +134,10 @@ export const LESSONS = {
     stateVisualization: QuickSortVisualisation,
     code: QUICK_SORT_CODE,
     resetToZero: true,
+    description: "Эффективный алгоритм сортировки, который использует стратегию \"разделяй и властвуй\". ",
+    img: colizion,
+    bg: "rgb(255 197 179)",
+    objectFit: "0 -23px",
 
     theory: <QuickSortTheory />,
   },
@@ -191,6 +202,10 @@ export const LESSONS = {
     ],
     formatBpDesc: formatSimplifiedSearchDescription,
     stateVisualization: SimplifiedSearchStateVisualization,
+    description: "Основан на использовании хеш-функции для быстрого и эффективного доступа.",
+    img: search,
+    bg: 'rgb(249 255 179)',
+    objectFit: "3px -47px",
 
     theory: <SimplifiedHashTheory active="simplified_hash_search" />,
   },
