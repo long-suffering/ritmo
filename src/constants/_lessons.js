@@ -43,6 +43,12 @@ import { HashBoxesComponent, TetrisFactory } from "../code_blocks";
 import bubleSort from "../images/sort_img/buble_sort.png";
 import colizion from "../images/sort_img/colizion_img.png";
 import search from "../images/sort_img/search.png";
+import colizion2 from "../images/sort_img/colizion.png";
+import fastSorting from "../images/sort_img/fast-sorting.png";
+import openCreate from "../images/sort_img/open-create.png";
+import openSearch from "../images/sort_img/open-search.png";
+import openDelete from "../images/sort_img/open-delete.png";
+import openResize from "../images/sort_img/open-resize.png";
 
 const QuickSortVisualisation = TetrisFactory([
   [HashBoxesComponent, [{labels: [null]}, 'array', 'left', 'right']],
@@ -137,7 +143,7 @@ export const LESSONS = {
     description: "Эффективный алгоритм сортировки, который использует стратегию \"разделяй и властвуй\". ",
     img: colizion,
     bg: "rgb(255 197 179)",
-    objectFit: "0 -23px",
+    objectFit: "0 -81px",
 
     theory: <QuickSortTheory />,
   },
@@ -164,6 +170,9 @@ export const LESSONS = {
     inputs: [SIMPLIFIED_HASH_ORIGINAL_LIST_INPUT],
     formatBpDesc: formatSimplifiedInsertAllDescription,
     stateVisualization: SimplifiedInsertBrokenStateVisualization,
+    description: "Преобразование в один и тот же индекс массива",
+    img: colizion2,
+    bg: "#B2BAFF",
 
     theory: <CollisionsTheory />,
   },
@@ -178,6 +187,9 @@ export const LESSONS = {
     inputs: [SIMPLIFIED_HASH_ORIGINAL_LIST_INPUT],
     formatBpDesc: formatSimplifiedInsertAllDescription,
     stateVisualization: SimplifiedInsertStateVisualization,
+    description: "Включает несколько шагов",
+    img: fastSorting,
+    bg: "#C6FFB2",
 
     theory: <SimplifiedHashTheory active="simplified_hash_create" />,
   },
@@ -205,7 +217,7 @@ export const LESSONS = {
     description: "Основан на использовании хеш-функции для быстрого и эффективного доступа.",
     img: search,
     bg: 'rgb(249 255 179)',
-    objectFit: "3px -47px",
+    objectFit: "3px -58px",
 
     theory: <SimplifiedHashTheory active="simplified_hash_search" />,
   },
@@ -222,6 +234,10 @@ export const LESSONS = {
     inputs: [HASH_FROM_KEYS_INPUT],
     formatBpDesc: formatHashCreateNewAndInsert,
     stateVisualization: HashCreateNewStateVisualization,
+    description: "Включает несколько шагов",
+    img: openCreate,
+    bg: '#B2DFFF',
+    objectFit: "0 -53px",
 
     theory: <HashTheory />,
   },
@@ -246,6 +262,10 @@ export const LESSONS = {
     ],
     formatBpDesc: formatHashRemoveSearch,
     stateVisualization: HashNormalStateVisualization,
+    description: "Для ключа элемента, который вы ищете, примените хеш-функцию",
+    img: openSearch,
+    bg: '#B2FFFF',
+    objectFit: "0",
 
     theory: <HashTheory />,
   },
@@ -270,6 +290,10 @@ export const LESSONS = {
     ],
     formatBpDesc: formatHashRemoveSearch,
     stateVisualization: HashNormalStateVisualization,
+    description: "Вычислите хеш-значение ключа элемента",
+    img: openDelete,
+    bg: 'rgb(178 255 214)',
+    objectFit: "-15px -66px",
 
     theory: <HashTheory />,
   },
@@ -286,6 +310,10 @@ export const LESSONS = {
     inputs: [HASH_FROM_KEYS_INPUT],
     formatBpDesc: formatHashResize,
     stateVisualization: HashResizeStateVisualization,
+    description: "Массив который будет расширен",
+    img: openResize,
+    bg: '#E3F7FF',
+    objectFit: "0 -1px",
 
     theory: <HashTheory />,
   },

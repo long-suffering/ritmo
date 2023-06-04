@@ -163,10 +163,12 @@ function ChatModal() {
 
       setTextarea('')
 
+      // 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
+
       axios({
         url: urlApi,
         method: "post",
-        headers: { Authorization: `Bearer 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` },
+        headers: { Authorization: `Bearer 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` },
         data: {
           "model": "gpt-3.5-turbo",
           "messages": [{

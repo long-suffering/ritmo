@@ -173,10 +173,28 @@ export class MainPage extends React.Component {
                         <p>Интерактивный учебник <br/> с искусственным интеллектом</p>
                     </div>
 
+                    <h2>Сортировки</h2>
                     <div className="cards">
                         <LessonPane id="bubble_sort" />
                         <LessonPane id="quick_sort" />
+                        {/*<LessonPane id="simplified_hash_search" />*/}
+                    </div>
+
+                    <h2>Простейшие хеш-таблицы</h2>
+                    <div className="cards">
+                        <LessonPane id="simplified_hash_collisions" />
+                        <LessonPane id="simplified_hash_create" />
                         <LessonPane id="simplified_hash_search" />
+                    </div>
+
+                    <h2>Хеш-таблицы с открытой адресацией</h2>
+                    <div className="cards" style={{ marginBottom: '20px' }}>
+                        <LessonPane id="hash_create" />
+                        <LessonPane id="hash_search" />
+                        <LessonPane id="hash_remove" />
+                    </div>
+                    <div className="cards">
+                        <LessonPane id="hash_resize" />
                     </div>
 
                     <div className="call-to-action">
@@ -240,54 +258,6 @@ export class MainPage extends React.Component {
                     />
 
                     <div className="footer" children="Горыныч & Ко"/>
-
-                    {/*<div className="section">*/}
-                    {/*    <h1>Сортировки</h1>*/}
-                    {/*    <div className="lesson-pane-stack">*/}
-                    {/*        <LessonPane id="bubble_sort" />*/}
-                    {/*        <div className="placeholder" />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="lesson-pane-stack">*/}
-                    {/*        <div className="placeholder" />*/}
-                    {/*        <LessonPane id="quick_sort" />*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className="section">*/}
-                    {/*    <h1>Простейшие хеш-таблицы</h1>*/}
-                    {/*    <div className="lesson-pane-stack">*/}
-                    {/*        <LessonPane id="simplified_hash_collisions" />*/}
-                    {/*        <div className="placeholder" />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="lesson-pane-stack">*/}
-                    {/*        <div className="placeholder" />*/}
-                    {/*        <LessonPane id="simplified_hash_create" />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="lesson-pane-stack">*/}
-                    {/*        <LessonPane id="simplified_hash_search" />*/}
-                    {/*        <div className="placeholder" />*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className="section">*/}
-                    {/*    <h1>Хеш-таблицы с открытой адресацией</h1>*/}
-                    {/*    <div className="lesson-pane-stack">*/}
-                    {/*        <LessonPane id="hash_create" />*/}
-                    {/*        <div className="placeholder" />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="lesson-pane-stack">*/}
-                    {/*        <div className="placeholder" />*/}
-                    {/*        <LessonPane id="hash_search" />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="lesson-pane-stack">*/}
-                    {/*        <LessonPane id="hash_remove" />*/}
-                    {/*        <div className="placeholder" />*/}
-                    {/*    </div>*/}
-                    {/*    <div className="lesson-pane-stack">*/}
-                    {/*        <div className="placeholder" />*/}
-                    {/*        <LessonPane id="hash_resize" />*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
                 </div>
             </div>
         );

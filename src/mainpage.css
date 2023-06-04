@@ -84,11 +84,24 @@ html {
     margin-top: 40px;
 }
 
+.frontpage h2 {
+    font-family: 'Roboto Flex';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    color: #000000;
+    font-stretch: 140;
+    font-variation-settings: 'GRAD' 0, 'slnt' 0, 'XTRA' 500, 'XOPQ' 96, 'YOPQ' 79, 'YTLC' 514, 'YTUC' 712, 'YTAS' 720, 'YTDE' -249, 'YTFI' 738, 'opsz' 87;
+    margin-bottom: 20px;
+}
+
 .frontpage .cards {
     display: grid;
     grid-template-columns: 33% 33% 33%;
     grid-template-rows: 420px;
     grid-column-gap: 16px;
+    margin-bottom: 40px;
 }
 
 .frontpage .call-to-action {
