@@ -379,16 +379,28 @@ h1 {
     display: flex;
     justify-content: flex-end;
 }
-
 .modal-body {
     height: 100%;
     overflow-y: auto;
     padding: 10px 0;
 }
 
-.modal-body pre {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding-top: 10px;
+.modal-body .message {
+    text-align: center;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0 0 0 / 72%);
+}
+
+.modal-body .preloader {
+    width: 40px;
+    display: block;
+    margin: 10px auto;
+}
+
+.modal-body .pre-chat pre {
     text-wrap: balance;
     font-family: 'JetBrains Mono';
     font-style: normal;
@@ -396,12 +408,24 @@ h1 {
     font-size: 14px;
     line-height: 130%;
     letter-spacing: -0.03em;
-    margin-top: 10px;
 }
 
-.modal-body pre:first-child {
+.modal-body .pre-chat:first-child {
     border-top: 1px solid transparent;
     margin-top: 0;
+}
+
+.modal-body .pre-chat {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.modal-body .pre-chat img {
+    margin-right: 10px;
 }
 
 .modal-footer textarea,

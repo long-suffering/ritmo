@@ -15,6 +15,9 @@ import playArrow from "./icons/play_arrow.svg";
 import pauseButton from "./icons/pause.svg";
 import infoIcon from "./icons/info_icon.svg";
 import closeIcon from "./icons/close_icon.svg";
+import grinChatIcon from "./icons/grin-chat-icon.svg";
+import questionsIcon from "./icons/questions_icon.svg";
+import preloaderIcon from "./icons/preloader.gif";
 
 import { CodeBlockWithActiveLineAndAnnotations } from "./code_blocks";
 import { Redirect } from "react-router";
@@ -124,11 +127,19 @@ const PreChatModal = ({ text, isAi }) => {
       print_text(text, elem.current, delay)
     }, [elem])
 
-    return <pre ref={elem} />
+    return (
+      <div className="pre-chat">
+        <img src={grinChatIcon} width="40" height="40" />
+        <pre ref={elem} style={{ marginTop: "10px" }} />
+      </div>
+    )
   }
 
   return (
-    <pre children={text}/>
+    <div className="pre-chat" style={{ alignItems: "center" }}>
+      <img src={questionsIcon} width="40" height="40" />
+      <pre children={text}/>
+    </div>
   )
 }
 
@@ -155,7 +166,7 @@ function ChatModal() {
       axios({
         url: urlApi,
         method: "post",
-        headers: { Authorization: `Bearer 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` },
+        headers: { Authorization: `Bearer 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` },
         data: {
           "model": "gpt-3.5-turbo",
           "messages": [{
@@ -201,7 +212,10 @@ function ChatModal() {
           </div>
           <div className="modal-body">
             {chatMessage.map(( data, index) => (<PreChatModal text={data} key={data} isAi={!(index % 2)} />))}
-            {isPendingChat && "Загрузка..."}
+            {isPendingChat && (
+              <img src={preloaderIcon} alt="Загрузка" className="preloader" />
+            )}
+            {!(chatMessage.length > 0) ? (<div className="message" children="Спросите ИИ как работает алгоритм"/>) : ""}
           </div>
           <div className="modal-footer">
             <textarea placeholder="Введите ваше сообщение" value={textarea} onChange={(event) => setTextarea(event.target.value)} />
@@ -423,13 +437,13 @@ export class Player extends React.Component {
     }
   }
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyboard);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyboard);
-  }
+  // componentDidMount() {
+  //   document.addEventListener("keydown", this.handleKeyboard);
+  // }
+  //
+  // componentWillUnmount() {
+  //   document.removeEventListener("keydown", this.handleKeyboard);
+  // }
 
   hackTransition = () => {
     const track = document.getElementsByClassName("rc-slider-track")[0];
